@@ -27,6 +27,7 @@ function Elevkaren() {
           <a
             href="https://ebas.gymnasiet.sverigeselevkarer.se/signups/index/351"
             target="_blank"
+            rel="noreferrer"
           >
             Klicka här!
           </a>{" "}

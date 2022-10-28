@@ -15,7 +15,11 @@ export default function Home() {
       <div className="home">
         <h2 className="soon">KILLER startar snart...</h2>
         <h5 className="soon small">Medan du väntar kan du anmäla dig nedan</h5>
-        <a href="https://forms.office.com/r/4dZWTE7nd2" target="_blank">
+        <a
+          href="https://forms.office.com/r/4dZWTE7nd2"
+          target="_blank"
+          rel="noreferrer"
+        >
           Anmäl dig till killer här 👈
         </a>
       </div>

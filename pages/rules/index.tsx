@@ -14,7 +14,14 @@ function Rules({ rules }: { rules: RuleInfo[] }) {
         description="Här står alla regler, följ dessa så blir Killer kul för alla"
       />
       {rules.map((i, index) => {
-        return <Rule index={index + 1} isWhite={index % 2 == 0} rule={i} />;
+        return (
+          <Rule
+            key={index}
+            index={index + 1}
+            isWhite={index % 2 == 0}
+            rule={i}
+          />
+        );
       })}
       <br />
       <div className="infowrapper">

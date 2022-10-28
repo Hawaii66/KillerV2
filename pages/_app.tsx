@@ -7,13 +7,6 @@ import Navbar from "../Components/Navbar";
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
-      <Head>
-        <link
-          href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,300"
-          rel="stylesheet"
-          type="text/css"
-        />
-      </Head>
       <div className="flex">
         <Navbar />
         <Component {...pageProps} />

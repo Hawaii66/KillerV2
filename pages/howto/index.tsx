@@ -25,8 +25,8 @@ function howto({ howto }: { howto: RuleInfo[] }) {
       </div>
       <br />
       <ul>
-        {howto.map((i) => {
-          return <Info data={i.data} title={i.title} />;
+        {howto.map((i, index) => {
+          return <Info key={index} data={i.data} title={i.title} />;
         })}
       </ul>
       <br />
