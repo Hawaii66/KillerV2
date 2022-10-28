@@ -9,9 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@azure/communication-sms": "^1.0.0",
+    "aws-sdk": "^2.1243.0",
     "next": "13.0.0",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "twilio": "^3.83.0"
   },
   "devDependencies": {
     "@types/node": "18.11.7",
