@@ -1,16 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { KillerUser } from "../../../Interfaces/Interfaces";
 
 var AWS = require("aws-sdk");
 
+AWS.config.update({ region: "eu-north-1" });
+
 type Data = {};
 
-export default async function handler(
-  req: NextApiRequest,
-  res: NextApiResponse<Data>
-) {
+export const sendSms = async (to: string, text: string) => {
   var params = {
-    Message: "Välkommen till Killer 2022!",
-    PhoneNumber: "+46703290705",
+    Message: text,
+    PhoneNumber: to,
     MessageAttributes: {
       "AWS.SNS.SMS.SenderID": {
         DataType: "String",
@@ -26,7 +26,32 @@ export default async function handler(
     .promise();
 
   publishTextPromise.then((data: any) => {
-    console.log(data);
-    res.send("Successs");
+    return;
   });
+};
+
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse<Data>
+) {
+  const data = await JSON.parse(req.body);
+
+  const promises: Promise<any>[] = [];
+  data.users.forEach((user: KillerUser) => {
+    var text: string = data.text;
+    text = text.replaceAll("<namn>", user.name);
+    text = text.replaceAll("<klass>", user.group);
+    text = text.replaceAll(
+      "<target>",
+      data.users.find((u: KillerUser) => u.id === user.target)?.name
+    );
+
+    const number = `+46${user.phone.substring(1, user.phone.length)}`;
+
+    console.log(number, text);
+
+    //promises.push(sendSms(number, text));
+  });
+
+  await Promise.all(promises);
 }

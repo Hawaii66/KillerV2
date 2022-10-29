@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import useWindowSize from "../Hooks/WindowSize";
+import dynamic from "next/dynamic";
 
 function Navbar() {
   const size = useWindowSize();
   const [showBottom, setShowBottom] = useState(false);
 
-  if (size.width <= 850) {
+  if (size.width < 940) {
     return (
       <>
         <div className="navbar">
@@ -34,6 +35,9 @@ function Navbar() {
               <Link href={"/howto"}>Så här fungerar Killer</Link>
             </p>
             <p>
+              <Link href={"/profil"}>Profil</Link>
+            </p>
+            <p>
               <Link href={"/elevkaren"}>Elevkåren</Link>
             </p>
           </div>
@@ -41,6 +45,10 @@ function Navbar() {
       </>
     );
   }
+
+  const LoginComp = dynamic(() => import("react-microsoft-login"), {
+    ssr: false,
+  });
 
   return (
     <div className="navbar">
@@ -60,6 +68,9 @@ function Navbar() {
         </p>
         <p>
           <Link href={"/howto"}>Så här fungerar Killer</Link>
+        </p>
+        <p>
+          <Link href={"/profil"}>Profil</Link>
         </p>
         <p>
           <Link href={"/elevkaren"}>Elevkåren</Link>

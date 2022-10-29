@@ -1,0 +1,12 @@
+.wrapper {
+    width: 70vw;
+}
+
+.spacer {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
