@@ -8,7 +8,7 @@ import UserSorter, { SortMode } from "../../Components/Admin/UserSorter";
 import UserViewer from "../../Components/Admin/UserViewer";
 import KillerActions from "../../Components/Admin/KillerActions";
 import SmsSend from "../../Components/Admin/SmsSend";
-function index() {
+function Admin() {
   const [users, setUsers] = useState<KillerUser[]>([]);
   const [showDead, setShowDead] = useState<boolean>(false);
 
@@ -125,4 +125,4 @@ function shuffle(array: any[]) {
   return array;
 }
 
-export default index;
+export default Admin;
