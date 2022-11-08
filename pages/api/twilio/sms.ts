@@ -3,7 +3,13 @@ import { KillerUser } from "../../../Interfaces/Interfaces";
 
 var AWS = require("aws-sdk");
 
-AWS.config.update({ region: "eu-north-1" });
+AWS.config.update({
+  region: "eu-north-1",
+  credentials: {
+    accessKeyId: process.env.PERSONAL_AWS_ACCESS_KEY,
+    secretAccessKey: process.env.PERSONAL_AWS_SECRET_KEY,
+  },
+});
 
 type Data = {};
 
@@ -36,8 +42,19 @@ export default async function handler(
 ) {
   const data = await JSON.parse(req.body);
 
-  const promises: Promise<any>[] = [];
+  var checkUsers: KillerUser[] = [];
   data.users.forEach((user: KillerUser) => {
+    if (user.alive) {
+      checkUsers.push(user);
+    }
+  });
+
+  console.log("Sending sms to: ", checkUsers.length);
+
+  const promises: Promise<any>[] = [];
+  checkUsers.forEach((user) => {
+    if (!user.alive) return;
+
     var text: string = data.text;
     text = text.replaceAll("<namn>", user.name);
     text = text.replaceAll("<klass>", user.group);
@@ -58,4 +75,6 @@ export default async function handler(
   });
 
   await Promise.all(promises);
+
+  console.log("All sms has been sent");
 }

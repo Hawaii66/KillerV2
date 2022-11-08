@@ -2,7 +2,7 @@ export const ValidateToken = async (accessToken: string, email: string) => {
   var jwt = require("jsonwebtoken");
   const keyUrl = `https://login.microsoftonline.com/${process.env.MICROSOFT_TENANT_ID}/discovery/keys?appid=${process.env.MICROSOFT_APP_ID}`;
 
-  console.log("Verifiing token: ", keyUrl, accessToken, email);
+  console.log("Checking user token: ", accessToken, email);
 
   const decodedTemp = jwt.decode(accessToken, { complete: true });
   if (decodedTemp === null) {
