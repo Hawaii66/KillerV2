@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../../Components/Admin/admin.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -8,7 +8,16 @@ import UserSorter, { SortMode } from "../../Components/Admin/UserSorter";
 import UserViewer from "../../Components/Admin/UserViewer";
 import KillerActions from "../../Components/Admin/KillerActions";
 import SmsSend from "../../Components/Admin/SmsSend";
+import SignIn from "../../Components/Profil/SignIn";
+import buttonStyles from "./admin.module.css";
+import Admins from "../../Components/Admin/Admins";
 function Admin() {
+  const [signedIn, setSignedIn] = useState(false);
+  const [user, setUser] = useState<{ email: string; jwt: string; msal: any }>({
+    email: "",
+    jwt: "",
+    msal: null,
+  });
   const [users, setUsers] = useState<KillerUser[]>([]);
   const [showDead, setShowDead] = useState<boolean>(false);
 
@@ -53,6 +62,8 @@ function Admin() {
     }
 
     setUsers(newUsers);
+
+    save(newUsers);
   };
 
   const randomise = () => {
@@ -87,10 +98,74 @@ function Admin() {
     });
 
     setUsers(prevUsers);
+
+    save(prevUsers);
   };
+
+  const save = async (saveusers: KillerUser[]) => {
+    const res = await fetch("/api/server/circle", {
+      method: "POST",
+      body: JSON.stringify(saveusers),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    console.log(res);
+  };
+
+  const loadGame = async () => {
+    const url = `/api/server/circle/all`;
+    const result = await fetch(url);
+
+    const data = await result.json();
+    setUsers(data);
+  };
+
+  const logout = () => {
+    if (user.msal !== null) {
+      user.msal.logout();
+      setUser({
+        email: "",
+        jwt: "",
+        msal: null,
+      });
+      setSignedIn(false);
+    }
+  };
+
+  const isAuthed = async (email: string, jwt: string) => {
+    const url = `/api/server/admin/check?email=${email}&jwt=${jwt}`;
+    const result = await fetch(url);
+    return result.status === 200;
+  };
+
+  if (!signedIn) {
+    return (
+      <SignIn
+        setLoggedIn={async (b, msal, email, jwt) => {
+          if (await isAuthed(email, jwt)) {
+            setUser({
+              email,
+              jwt,
+              msal,
+            });
+            setSignedIn(b);
+            loadGame();
+          } else {
+            msal.logout();
+            setSignedIn(false);
+          }
+        }}
+      />
+    );
+  }
 
   return (
     <div className={styles.wrapper}>
+      <button className={buttonStyles.button} onClick={logout}>
+        <img src={"./Images/Logut.svg"} />
+      </button>
       <ExcelFileLoader setUsers={(u) => setUsers(u)} />
       <UserSorter
         showDead={(e) => setShowDead(e)}
@@ -101,6 +176,7 @@ function Admin() {
       <UserViewer showdead={showDead} users={users} />
       <KillerActions randomise={randomise} />
       <SmsSend users={users} />
+      <Admins email={user.email} jwt={user.jwt} />
     </div>
   );
 }

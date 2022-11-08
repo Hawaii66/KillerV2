@@ -237,3 +237,11 @@ a {
     cursor: pointer;
     padding-right: 1rem;
 }
+
+.on {
+    opacity: 100;
+}
+
+.off {
+    opacity: 0;
+}

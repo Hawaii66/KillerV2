@@ -38,7 +38,9 @@ function ExcelFileLoader({ setUsers }: Props) {
       d.forEach((u: any) => {
         users.push({
           target: -1,
-          alive: Math.random() > 0.5,
+          alive: true,
+          kills: 0,
+          schoolEmail: u["E-post"],
           email: u["Email (Mailen du använder skola eller privat)"],
           group: u["Klass"],
           id: index,
@@ -55,7 +57,7 @@ function ExcelFileLoader({ setUsers }: Props) {
 
   return (
     <div className={styles.spacer}>
-      <h3>Välj excell fil att använda: </h3>
+      <h3>Välj excell fil för att starta om killer: </h3>
       <input
         type="file"
         onChange={(e) => {

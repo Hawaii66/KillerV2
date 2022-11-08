@@ -1,0 +1,37 @@
+.card {
+    width: 30vw;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    border: 1px solid #2a2a2a;
+    border-radius: 15px;
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    box-shadow: 5px 5px 5px #2a2a2a;
+}
+
+.card h3 {
+    margin: 1rem;
+    height: 2rem;
+    color: var(--main-green);
+}
+
+.card p {
+    margin: 1rem;
+    height: 2rem;
+    color: var(--text-color);
+}
+
+@media screen and (max-width: 1550px) {
+    .card {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 890px) {
+    .card {
+        width: 70vw;
+        grid-template-columns: 1fr;
+    }
+}

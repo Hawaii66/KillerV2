@@ -1,0 +1,65 @@
+.buttonContainer {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    width: 30vw;
+    margin: auto;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    height: 4rem;
+}
+
+.button {
+    width: calc((30vw - 1vw) / 2);
+    height: 4rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--main-green);
+    background-color: white;
+    border-radius: 15px;
+    border-width: 4px;
+    border-color: var(--main-green);
+    border-style: solid;
+    cursor: pointer;
+    box-shadow: 3px 3px 1px var(--main-green);
+    transition: all 0.2s;
+}
+
+.button:hover {
+    box-shadow: 0px 0px 1px var(--main-green);
+    translate: 3px 3px;
+}
+
+.button b {
+    font-weight: 900;
+}
+
+@media screen and (max-width: 1550px) {
+    .buttonContainer {
+        width: 50vw;
+    }
+    .button {
+        width: calc((50vw - 1vw) / 2);
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .buttonContainer {
+        width: 70vw;
+    }
+    .button {
+        width: calc((70vw - 1vw) / 2);
+    }
+}
+
+@media screen and (max-width: 760px) {
+    .buttonContainer {
+        width: 70vw;
+        flex-direction: column;
+        height: 8rem;
+    }
+    .button {
+        width: calc(70vw - 2vw);
+        height: 4rem;
+    }
+}

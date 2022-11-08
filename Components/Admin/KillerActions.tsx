@@ -8,10 +8,10 @@ interface Props {
 
 function KillerActions({ randomise }: Props) {
   const newCircle = () => {
-    const answer = confirm(
-      "Är du säker på att du vill starta om cirkeln och skicka ut nya sms?"
+    const answer = prompt(
+      "Är du säker på att du vill starta om cirkeln och skicka ut nya sms?\nIsåfall skriv\n\nstarta om"
     );
-    if (answer) {
+    if (answer !== null && answer === "starta om") {
       randomise();
     }
   };

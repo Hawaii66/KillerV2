@@ -45,12 +45,16 @@ export default async function handler(
       "<target>",
       data.users.find((u: KillerUser) => u.id === user.target)?.name
     );
+    text = text.replaceAll(
+      "<targetklass>",
+      data.users.find((u: KillerUser) => u.id === user.target)?.group
+    );
 
     const number = `+46${user.phone.substring(1, user.phone.length)}`;
 
     console.log(number, text);
 
-    //promises.push(sendSms(number, text));
+    promises.push(sendSms(number, text));
   });
 
   await Promise.all(promises);
