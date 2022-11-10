@@ -30,13 +30,13 @@ function Rules({ rules }: { rules: RuleInfo[] }) {
         </div>
         <div>
           <div>
+            <p>Eventuella frågor tas upp med oss via mail</p>
+            <Link to={"mailto:neg_killer@nykopingsenskilda.se"}>
+              neg_killer@nykopingsenskilda.se
+            </Link>
             <p>
-              Eventuella frågor tas upp med oss via mail
-              (enskildakiller@gmail.com) alternativt Instagram (@enskildakaren).
-            </p>
-            <p>
-              Årets KILLER-ansvariga är Elvin (NA19B), Selma (SA19B), Edwin
-              (EK19A) och Alva (NA19A).{" "}
+              Årets KILLER-ansvariga är Sebastian (NA21B), Emma (SA21A), Nilo
+              (SA21A)
             </p>
           </div>
         </div>

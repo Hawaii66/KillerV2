@@ -5,7 +5,9 @@ function Footer() {
     <footer className="footer">
       <p>
         Kontakt:{" "}
-        <a href="mailto:enskildakiller@gmail.com">enskildakiller@gmail.com</a>
+        <a href="mailto:neg_killer@nykopingsenskilda.se">
+          neg_killer@nykopingsenskilda.se
+        </a>
       </p>
       <p>
         Kontakt om hemsidan:{" "}
