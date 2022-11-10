@@ -1,5 +1,5 @@
+import Link from "next/link";
 import React from "react";
-import Link from "next/Link";
 import Header from "../../Components/Header";
 import Info from "../../Components/Info";
 import Rule from "../../Components/Rule";
@@ -32,7 +32,7 @@ function Rules({ rules }: { rules: RuleInfo[] }) {
         <div>
           <div>
             <p>Eventuella frågor tas upp med oss via mail</p>
-            <Link to={"mailto:neg_killer@nykopingsenskilda.se"}>
+            <Link href={"mailto:neg_killer@nykopingsenskilda.se"}>
               neg_killer@nykopingsenskilda.se
             </Link>
             <p>
