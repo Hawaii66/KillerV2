@@ -7,13 +7,13 @@ interface Props {
 }
 
 function LoginComp({ visible, setLoggedIn }: Props) {
-  const LoginComp = dynamic(() => import("react-microsoft-login"), {
+  const LoginComp: any = dynamic(() => import("react-microsoft-login"), {
     ssr: false,
   });
   return (
     <LoginComp
       className={visible ? "on" : "off"}
-      authCallback={(e, result, msal) => {
+      authCallback={(e: any, result: any, msal: any) => {
         if (
           result !== undefined &&
           result.mail !== null &&

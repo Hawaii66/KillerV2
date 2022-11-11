@@ -11,7 +11,7 @@ export const data: Data = {
   howto: [
     {
       title: "Ditt Offer",
-      data: "<p>Du blir tilldelad ditt första offer via den mejlen du anger vid anmälningstillfället. Därefter får du offrets offer och så vidare. </p><p>Exempel: Om A dödar B (och B skulle ha dödat C) så blir A's nya offer C.</p>",
+      data: "<p>Du blir tilldelad ditt första offer via fliken profil ovan där du loggar in med din <b>skolmail</b>. Vid ett lyckat mord får du ditt nästa offer under fliken profil </p><p>Exempel: Om A dödar B (och B skulle ha dödat C) så blir A's nya offer C.</p>",
     },
     {
       title: "Hur man utför ett mord",
@@ -23,11 +23,11 @@ export const data: Data = {
     },
     {
       title: "När du har begått ett mord",
-      data: '<p>När du begått ett lyckat mord, utan att någon vittnar, ska du anmäla ditt mord via mail: <a href="mailto:enskildakiller@gmail.com">enskildakiller@gmail.com</a> (läs regel 6)</p>',
+      data: '<p>När du begått ett lyckat mord, utan att någon vittnar, ska du gå till fliken profil ovan och logga in med din skolmail. Klicka sedan på "jag har dödat" och godkän frågan som kommer upp. Vänta på att ditt offer gör samma sak och ladda sedan om sidan, mer information under regel 6</p>',
     },
     {
       title: "När du har blivit dödad",
-      data: '<p>När du blivit dödad ska du anmäla det via mail: <a href="mailto:enskildakiller@gmail.com">enskildakiller@gmail.com</a> (läs regel 6)</p>',
+      data: '<p>När du blivit dödad ska du gå till fliken profil ovan och logga in med din skolmail. Klicka sedan på "jag blev dödad" och godkänn frågan som kommer upp. Vänta på att din mörare och ladda sedan om hemsidan för att se din slutgilitliga statistik. Mer informaiton under regel 6.</p>',
     },
     {
       title: "Dagens Vapen",
@@ -39,7 +39,11 @@ export const data: Data = {
     },
     {
       title: "Dagens Vittnesbevis",
-      data: "<p>Dagens Vittnesbevis förekommer vissa dagar och innebär att man behöver ha ett specifikt föremål för att kunna bevittna ett mord. Medans ett vittnesbevis är aktivt så innebär det att vanliga vittnesmål inte fungerar som ett sätt att stoppa ett mord.</p><p>Gemensamt för både vapen och skydd är att de måste vara synliga vid användning och om det förekommer speciella instruktioner för hur de ska bäras är det viktigt att instruktionerna följs för att vapnet/skyddet ska vara giltigt.</p><p>Vapen, Skydd och Vittnesbevis annonseras på Enskilda Kårens Instagram. För att minimera risken att folk stannar hemma kan skydd komma att avslöjas samma dag som det gäller eller i form av så kallat flashvapen.</p><p>Löpande information under spelets gång hittar man här på hemsidan, däribland uppdateringar av regler och diverse statistik.</p>",
+      data: "<p>Dagens Vittnesbevis förekommer vissa dagar och innebär att man behöver ha ett specifikt föremål för att kunna bevittna ett mord. Medans ett vittnesbevis är aktivt så innebär det att vanliga vittnesmål inte fungerar som ett sätt att stoppa ett mord.</p>",
+    },
+    {
+      title: "Gemensamt för skydd, vapen & vittnesbevis",
+      data: "<p>Gemensamt för både vapen och skydd är att de måste vara synliga vid användning och om det förekommer speciella instruktioner för hur de ska bäras är det viktigt att instruktionerna följs för att vapnet/skyddet ska vara giltigt.</p><p>Vapen, Skydd och Vittnesbevis annonseras på Enskilda Kårens Instagram. För att minimera risken att folk stannar hemma kan skydd komma att avslöjas samma dag som det gäller eller i form av så kallat flashvapen.</p><p>Löpande information under spelets gång hittar man här på hemsidan, däribland uppdateringar av regler och diverse statistik.</p>",
     },
   ],
   rules: [
@@ -51,7 +55,7 @@ export const data: Data = {
     {
       title:
         "Inga mord får begås under lektionstid, oavsett var offret befinner sig. ",
-      data: "<p>Offret måste alltid kunna bevisa med schema att denne har lektion.</p><i>Undantag: Schemabrytande lektionstid måste kunna styrkas av lärare.</i><i>Avslutar läraren lektionen tidigare än vad schemat säger så är det inte längre lektion och man kan då bli dödad. (På resurstiden är skolbyggnaden alltid killerfri fram till 16.00)</i>",
+      data: "<p>Offret måste alltid kunna bevisa med schema att denne har lektion.</p><i>Undantag: Schemabrytande lektionstid måste kunna styrkas av lärare.</i><i>Avslutar läraren lektionen tidigare än vad schemat säger så är det inte längre lektion och man kan då bli dödad. (På resurstiden är skolbyggnaden alltid killerfri från 14.55 till 16.15)</i>",
     },
     {
       title: "Inga mord får begås i matsalen eller lärares arbetsrum",
@@ -64,11 +68,11 @@ export const data: Data = {
     },
     {
       title: "Under Resurstiden gills hela skolbyggnaden som en lektionssal",
-      data: "<p>På onsdagar klockan 13.45 - 16.00 är det med andra ord killerfritt inne på skolan.</p>",
+      data: "<p>På onsdagar klockan 14.55 - 16.15 är det med andra ord killerfritt inne på skolan.</p>",
     },
     {
       title: "Alla mord ska registreras hos oss av både mördare och offer ",
-      data: '<p>Detta görs via mail där man skriver: "Namn och klass" dödade "Namn och klass"</p><a href="mailto:enskildakiller@gmail.com">enskildakiller@gmail.com</a>',
+      data: '<p>Detta görs på hemsidan under fliken profil där du loggar in med din <b>skolmail</b> efter det klickar du på antingen "Jag blev dödad" eller "Jag har dödat". Vänta på att den andra klickar på den andra knappen och ladda om sidan efter några sekunder. Nu har du fått ditt nästa offer</p>',
     },
     {
       title:
@@ -115,15 +119,15 @@ export const data: Data = {
     },
     {
       title: "Frånvaro",
-      data: "<p>Självklart måste man vara hemma om man känner sig sjuk, men frånvaro kommer kontrolleras.</p><p>Om man är borta mer än fyra skoldagar i sträck eller på annat sätt har en återkommande frånvaro utan att kunna styrka sin sjukdom diskas man automatiskt. Vi kommer bli betydligt hårdare på detta under skydd- och vapendagar samt senare i Killer.</p>",
+      data: "<p>Självklart måste man vara hemma om man känner sig sjuk, men frånvaro kommer kontrolleras.</p><p>Om man är borta en längre period eller kontinuerligt blir det konsekvenser.</p>",
     },
     {
       title: "Studentpoäng",
-      data: "<p><i>Preliminärt, kan komma att ändras</i></p><p>Studentpoängen i år kommer delas ut enligt följande:</p><ul><li>Till de tre klasser i trean som har högst procentuellt antal levande av det totala antalet medlemmar i klassen den 29 november 23:59. Antalet levande i procent ges av formeln: 100*Antal levande/ Antal i klassen. Notera att antal i klassen inte gäller antal anmälda, utan antalet i din klass totalt. Om din klass har 30 elever och 6 levande betyder det alltså att 20 procent av din klass lever.</li><li>Till de tre klasser i trean som har flest kills per person i klassen den 29 november 23:59. Kills per person i klassen bestäms enligt följande: Antal kills av klassen / Antal i klassen. Notera att antal i klassen inte gäller antal anmälda, utan antalet i din klass totalt. Om din klass har 28 elever och 30 kills så har klassen jämförelsevärdet 30/26 = ~1.11.</li></ul>",
+      data: "<p>Student poäng delas ut i två kategorier</p><ul><li>De 3 klasser med flest överlevande i procent kommer få studentpoäng. Flest överlevande beräknas genom formeln: <br/>Antal Levnade (9/12 14:00)/Antal personer i klassen</li><br/><li>De 3 klasser med flest antal kills procentuellt kommer också få student poäng enligt formlen nedan: <br/>Antal Kills (9/12 14:00)/Antal personer i klassen</li></ul>",
     },
     {
       title: "Automatisk diskning och ändring av cirkeln",
-      data: "<p>Beroende på hur många som lever när KILLER börjar närma sig sitt sluskede, kan eventuellt filter komma att tillämpas. Ett exempel på ett sådant filter kan vara att alla som dödat färre än x person(er) åker ut ett visst datum.</p><p>Om det bedöms möjligt att Killer kommer bli klart för tidigt, eller liknande misstanke, kan cirkeln komma att göras om för att förlänga spelets gång.</p>",
+      data: "<p>Förändringar på cirkeln kan komma att ske under spelets gång, håll utkik på instagram @enskildakaren</p>",
     },
   ],
 };

@@ -12,6 +12,14 @@ export const ValidateToken = async (accessToken: string, email: string) => {
 
   const result = await fetch(keyUrl);
   const data: { keys: any[] } = await result.json();
+  if (
+    data === null ||
+    data === undefined ||
+    data.keys === null ||
+    data.keys === undefined
+  ) {
+    return false;
+  }
   const microsoftPrivateKey = data.keys.find((i) => i.kid === kid).x5c;
 
   const microsoftKey = `-----BEGIN CERTIFICATE-----\n${microsoftPrivateKey}\n-----END CERTIFICATE-----`;

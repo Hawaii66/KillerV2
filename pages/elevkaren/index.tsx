@@ -6,32 +6,11 @@ function Elevkaren() {
   return (
     <div>
       <Header
-        title="Anmälan"
+        title="Enskilda Kåren"
         description="Anmäl dig till Killer, men var beredd. Vem står bakom dig?"
       />
       <div className="elevkarenwrapper">
-        <h2>OBS</h2>
-        <p>
-          Kom ihåg att du <b>måste vara medlem</b> i Enskildas Elevkår för att
-          få medverka i KILLER. (Det är gratis)
-        </p>
-        <br />
-        <p>
-          {" "}
-          (Även <b>tvåor</b> och <b>treor</b> behöver förnya sitt medlemskap,
-          klicka på länken.)
-        </p>
-        <br />
-        <p className="medlem">
-          Bli medlem i Enskildakåren:{" "}
-          <a
-            href="https://ebas.gymnasiet.sverigeselevkarer.se/signups/index/351"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Klicka här!
-          </a>{" "}
-        </p>
+        <h2></h2>
         <br />
         <p>
           Enskildas Elevkår är en förening som vi elever på skolan har möjlighet

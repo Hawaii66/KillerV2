@@ -38,7 +38,7 @@ function Navbar() {
               <Link href={"/profil"}>Profil</Link>
             </p>
             <p>
-              <Link href={"/elevkaren"}>Elevkåren</Link>
+              <Link href={"/elevkaren"}>Enskildakåren</Link>
             </p>
           </div>
         )}
@@ -73,7 +73,7 @@ function Navbar() {
           <Link href={"/profil"}>Profil</Link>
         </p>
         <p>
-          <Link href={"/elevkaren"}>Elevkåren</Link>
+          <Link href={"/elevkaren"}>Enskildakåren</Link>
         </p>
       </div>
     </div>
