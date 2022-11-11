@@ -109,8 +109,8 @@ function Profil() {
   };
 
   const hasMurdered = async () => {
-    const action = confirm(`Är du säker på att du mördat: ${profile.target}`);
-    if (!action) return;
+    //const action = confirm(`Är du säker på att du mördat: ${profile.target}`);
+    //if (!action) return;
 
     setLoading(true);
     const url = `/api/server/murder?type=HAS`;
@@ -130,8 +130,8 @@ function Profil() {
   };
 
   const gotMurdered = async () => {
-    const action = confirm(`Är du säker på att du blev mördad`);
-    if (!action) return;
+    //const action = confirm(`Är du säker på att du blev mördad`);
+    //if (!action) return;
 
     setLoading(true);
     const url = `/api/server/murder?type=GOT`;

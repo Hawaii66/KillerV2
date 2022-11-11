@@ -166,7 +166,12 @@ function Admin() {
       <button className={buttonStyles.button} onClick={logout}>
         <img src={"./Images/Logut.svg"} />
       </button>
-      <ExcelFileLoader setUsers={(u) => setUsers(u)} />
+      <ExcelFileLoader
+        setUsers={(u) => {
+          setUsers(u);
+          save(u);
+        }}
+      />
       <UserSorter
         showDead={(e) => setShowDead(e)}
         setSortMode={(e) => {
