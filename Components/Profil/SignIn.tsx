@@ -9,6 +9,17 @@ interface Props {
 }
 
 function SignIn({ setLoggedIn, msal }: Props) {
+  const removeTokens = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+
+    document.cookie.split(";").forEach(function (c) {
+      document.cookie = c
+        .replace(/^ +/, "")
+        .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+    });
+  };
+
   return (
     <div className={styles.wrapper}>
       <h1>Logga in för att se din information</h1>
@@ -25,10 +36,11 @@ function SignIn({ setLoggedIn, msal }: Props) {
         </h1>
         <button
           onClick={() => {
-            msal.logout();
+            removeTokens();
+            msal?.logout();
           }}
         >
-          Logga Ut
+          Rensa Cookies
         </button>
       </div>
     </div>
