@@ -26,14 +26,15 @@ function LoginComp({ visible, setLoggedIn }: Props) {
             }),
           });
 
-          if (e !== undefined) {
+          if (e !== undefined && e !== null) {
+            console.log(e);
             setError(
               "Något har gått fel. Klicka på knappen under `Logga ut`, " +
-                e.toString()
+                e?.toString()
             );
             alert(
               "Något har gått fel. Klicka på knappen under `Logga ut`, " +
-                e.toString()
+                e?.toString()
             );
             return;
           }
