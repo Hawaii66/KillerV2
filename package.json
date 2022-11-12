@@ -12,6 +12,7 @@
         "@azure/communication-sms": "^1.0.0",
         "@microsoft/microsoft-graph-client": "^3.0.2",
         "@types/react-bootstrap": "^0.32.31",
+        "@vercel/analytics": "^0.1.4",
         "aws-sdk": "^2.1243.0",
         "bootstrap": "^5.2.2",
         "chart.js": "^3.9.1",
