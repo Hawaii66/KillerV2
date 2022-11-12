@@ -160,6 +160,7 @@ function Admin() {
   if (!signedIn) {
     return (
       <SignIn
+        msal={user.msal}
         setLoggedIn={async (b, msal, email, jwt) => {
           if (await isAuthed(email, jwt)) {
             setUser({
