@@ -20,8 +20,16 @@ function SignIn({ setLoggedIn, msal }: Props) {
         <LoginComp visible={true} setLoggedIn={setLoggedIn} />
       </div>
       <div>
-        <h1>Om det inte funkar klicka nedan</h1>
-        <button onClick={() => msal.logout()}>Logga Ut</button>
+        <h1>
+          Om det inte funkar att logga in klicka nedan & vänta i några sekunder
+        </h1>
+        <button
+          onClick={() => {
+            msal.logout();
+          }}
+        >
+          Logga Ut
+        </button>
       </div>
     </div>
   );
