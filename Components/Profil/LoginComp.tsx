@@ -17,8 +17,11 @@ function LoginComp({ visible, setLoggedIn }: Props) {
         await fetch("/api/server/temp", {
           method: "POST",
           body: JSON.stringify({
-            error: e.toString(),
-            result: result.toString(),
+            error: e === undefined || e === null ? "NO error" : e.toString(),
+            result:
+              result === undefined || result === null
+                ? "No result"
+                : result.toString(),
           }),
         });
 
