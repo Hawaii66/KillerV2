@@ -13,7 +13,15 @@ function LoginComp({ visible, setLoggedIn }: Props) {
   return (
     <LoginComp
       className={visible ? "on" : "off"}
-      authCallback={(e: any, result: any, msal: any) => {
+      authCallback={async (e: any, result: any, msal: any) => {
+        await fetch("/api/server/temp", {
+          method: "POST",
+          body: JSON.stringify({
+            error: e.toString(),
+            result: result.toString(),
+          }),
+        });
+
         if (
           result !== undefined &&
           result.mail !== null &&
