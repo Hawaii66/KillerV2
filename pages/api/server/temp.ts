@@ -11,5 +11,6 @@ export default async function handler(
   const debug = dbs.debug;
 
   const data = JSON.parse(req.body);
-  debug.insert(data);
+  await debug.insert(data);
+  res.send("Success");
 }

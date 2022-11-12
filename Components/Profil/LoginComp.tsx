@@ -19,9 +19,7 @@ function LoginComp({ visible, setLoggedIn }: Props) {
           body: JSON.stringify({
             error: e === undefined || e === null ? "NO error" : e.toString(),
             result:
-              result === undefined || result === null
-                ? "No result"
-                : result.toString(),
+              result === undefined || result === null ? "No result" : result,
           }),
         });
 
