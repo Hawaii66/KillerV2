@@ -56,7 +56,9 @@ function LoginComp({ visible, setLoggedIn }: Props) {
             msal?.logout();
             if (result !== undefined) {
               setError(
-                "Fel mail, måste vara din skol email som slutar på @nykopingsenskilda.se"
+                "Fel mail, måste vara din skol email som slutar på @nykopingsenskilda.se" +
+                  e +
+                  result
               );
               alert(
                 "Fel mail, måste vara din skol email som slutar på @nykopingsenskilda.se"
