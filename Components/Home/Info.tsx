@@ -14,7 +14,7 @@ function Info({ info }: Props) {
         <button
           onClick={() =>
             navigator.clipboard.writeText(
-              `enskildakiller.vercel.app/share/${info.id}`
+              `https://enskildakiller.vercel.app/share/${info.id}`
             )
           }
           className={styles.share}
