@@ -8,43 +8,6 @@ import { HomeInfo } from "../Interfaces/Interfaces";
 import { connect, dbs } from "../utils/DBConnection";
 
 export default function Home({ posts }: { posts: HomeInfo[] }) {
-  const [timer, setTimer] = useState(0);
-
-  useEffect(() => {
-    const startDate = new Date("2022-11-14 07:00");
-    var current = Date.now();
-    //current = new Date("2022-11-14 03:00").getTime();
-    const diff = startDate.getTime() - current;
-    console.log(diff);
-
-    var counter: any = null;
-
-    if (diff >= 0) {
-      setTimer(diff);
-
-      counter = setInterval(() => {
-        setTimer((t) => t - 1);
-      }, 1000);
-    }
-
-    return () => {
-      if (counter !== null) {
-        clearInterval(counter);
-      }
-    };
-  });
-
-  const getInfo = () => {
-    const date = new Date(timer);
-
-    return {
-      days: date.getDate(),
-      hours: date.getHours(),
-      minutes: date.getMinutes(),
-      seconds: date.getSeconds(),
-    };
-  };
-
   return (
     <>
       <Header
@@ -53,12 +16,6 @@ export default function Home({ posts }: { posts: HomeInfo[] }) {
       />
       <div className="home">
         <h2 className="soon">KILLER startar Mån kl 7:00</h2>
-        <h5 className="soon small">
-          {getInfo().days - 1} Dagar {getInfo().hours - 1} h{" "}
-          {getInfo().minutes < 10 ? `0${getInfo().minutes}` : getInfo().minutes}
-          :
-          {getInfo().seconds < 10 ? `0${getInfo().seconds}` : getInfo().seconds}
-        </h5>
         <div>
           {posts.map((i, index) => {
             return <Info info={i} key={index} />;
@@ -80,6 +37,7 @@ export async function getServerSideProps() {
       title: i.title,
       miniHeader: i.miniHeader,
       text: i.text,
+      id: i.id,
     });
   });
 

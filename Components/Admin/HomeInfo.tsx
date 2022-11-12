@@ -84,6 +84,22 @@ function HomeInfoEditor({ email, jwt }: { email: string; jwt: string }) {
                   />
                 </div>
                 <div className={styles.input}>
+                  <p>Share Tag</p>
+                  <input
+                    type={"text"}
+                    value={post.id}
+                    onChange={(val) => {
+                      editPost(
+                        {
+                          ...post,
+                          id: val.target.value,
+                        },
+                        index
+                      );
+                    }}
+                  />
+                </div>
+                <div className={styles.input}>
                   <p>Bild URL</p>
                   <input
                     type={"url"}
@@ -131,6 +147,7 @@ function HomeInfoEditor({ email, jwt }: { email: string; jwt: string }) {
                   title: "",
                   miniHeader: "",
                   text: "",
+                  id: "",
                 },
               ])
             }

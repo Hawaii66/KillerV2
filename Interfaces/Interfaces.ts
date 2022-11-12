@@ -21,4 +21,5 @@ export interface HomeInfo {
   miniHeader?: string;
   imageUrl: string;
   text?: string;
+  id: string;
 }

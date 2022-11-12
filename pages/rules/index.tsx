@@ -36,7 +36,7 @@ function Rules({ rules }: { rules: RuleInfo[] }) {
               neg_killer@nykopingsenskilda.se
             </Link>
             <p>
-              Årets KILLER-ansvariga är Sebastian (NA21B), Emma (SA21A), Nilo
+              Årets KILLER-ansvariga är Sebastian (NA21B), Emma S (SA21A), Nilo
               (SA21A)
             </p>
           </div>
