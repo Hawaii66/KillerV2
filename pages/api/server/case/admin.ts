@@ -25,7 +25,7 @@ export default async function handler(
   const kills = dbs.kills;
   const users = dbs.users;
 
-  const killerId = parseInt(params.kill);
+  const killerId = parseInt(params.kill?.toString() || "");
 
   const user: KillerUser | null = await users.findOne({
     id: killerId,
