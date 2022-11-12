@@ -45,12 +45,18 @@ function LoginComp({ visible, setLoggedIn }: Props) {
           ) {
             if (result.idToken === null || result.idToken === undefined) {
               alert("Något gick fel med vertifiering, försök igen om en stund");
+              setError(
+                "Något gick fel med vertifiering, försök igen om en stund"
+              );
               return;
             }
             setLoggedIn(true, msal, result.mail, result.idToken.rawIdToken);
           } else {
             msal?.logout();
             if (result !== undefined) {
+              setError(
+                "Fel mail, måste vara din skol email som slutar på @nykopingsenskilda.se"
+              );
               alert(
                 "Fel mail, måste vara din skol email som slutar på @nykopingsenskilda.se"
               );
