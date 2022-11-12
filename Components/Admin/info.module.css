@@ -1,0 +1,49 @@
+.infoWrapper {
+    width: 100%;
+}
+
+.info {
+    display: grid;
+    grid-template-columns: 10fr 1fr;
+    height: 25rem;
+}
+
+.inputs {
+    height: 20rem;
+    width: 100%;
+    padding: 0.5rem;
+}
+
+.input {
+    margin-top: 0.3rem;
+    color: var(--text-color);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 14fr;
+}
+
+.inputx {
+    width: 100%;
+}
+
+.inputx input {
+    width: calc(100% - 3rem);
+}
+
+.inputx button {
+    width: 2rem;
+    margin-left: 0.5rem;
+}
+
+.inputbig {
+    margin-top: 0.3rem;
+    color: var(--text-color);
+    width: 100%;
+    display: grid;
+    grid-template-columns: 2fr 14fr;
+    height: calc(20rem - 2rem * 3 - 3rem);
+}
+
+.infoWrapper img {
+    width: 20vw;
+}

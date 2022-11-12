@@ -152,6 +152,12 @@ a {
     text-align: center;
 }
 
+@media screen and (max-width: 1550px) {
+    .home {
+        width: 80%;
+    }
+}
+
 @media screen and (max-width: 600px) {
     .home {
         width: 90%;

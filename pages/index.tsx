@@ -3,8 +3,11 @@ import Image from "next/image";
 import { useEffect, useState } from "react";
 import Footer from "../Components/Footer";
 import Header from "../Components/Header";
+import Info from "../Components/Home/Info";
+import { HomeInfo } from "../Interfaces/Interfaces";
+import { connect, dbs } from "../utils/DBConnection";
 
-export default function Home() {
+export default function Home({ posts }: { posts: HomeInfo[] }) {
   const [timer, setTimer] = useState(0);
 
   useEffect(() => {
@@ -56,7 +59,33 @@ export default function Home() {
           :
           {getInfo().seconds < 10 ? `0${getInfo().seconds}` : getInfo().seconds}
         </h5>
+        <div>
+          {posts.map((i, index) => {
+            return <Info info={i} key={index} />;
+          })}
+        </div>
       </div>
     </>
   );
+}
+
+export async function getServerSideProps() {
+  await connect();
+  var posts: HomeInfo[] = await dbs.posts.find();
+
+  var returns: HomeInfo[] = [];
+  posts.map((i) => {
+    returns.push({
+      imageUrl: i.imageUrl,
+      title: i.title,
+      miniHeader: i.miniHeader,
+      text: i.text,
+    });
+  });
+
+  return {
+    props: {
+      posts: returns,
+    },
+  };
 }

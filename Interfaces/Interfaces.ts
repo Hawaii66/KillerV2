@@ -15,3 +15,10 @@ export interface KillerUser {
   alive: boolean;
   kills: number;
 }
+
+export interface HomeInfo {
+  title: string;
+  miniHeader?: string;
+  imageUrl: string;
+  text?: string;
+}

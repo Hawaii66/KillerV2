@@ -11,6 +11,7 @@ import SmsSend from "../../Components/Admin/SmsSend";
 import SignIn from "../../Components/Profil/SignIn";
 import buttonStyles from "./admin.module.css";
 import Admins from "../../Components/Admin/Admins";
+import HomeInfoEditor from "../../Components/Admin/HomeInfo";
 function Admin() {
   const [signedIn, setSignedIn] = useState(false);
   const [user, setUser] = useState<{ email: string; jwt: string; msal: any }>({
@@ -208,6 +209,7 @@ function Admin() {
       <KillerActions randomise={randomise} turn={turn} />
       <SmsSend users={users} />
       <Admins email={user.email} jwt={user.jwt} />
+      <HomeInfoEditor email={user.email} jwt={user.jwt} />
     </div>
   );
 }
