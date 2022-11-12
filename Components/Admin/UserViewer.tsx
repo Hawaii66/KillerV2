@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Table } from "react-bootstrap";
+import { Button, ButtonGroup, Table } from "react-bootstrap";
 import { KillerUser } from "../../Interfaces/Interfaces";
 import styles from "./admin.module.css";
+
+type ActionType = "Kill";
 
 interface Props {
   users: KillerUser[];
   showdead: boolean;
+  action: (index: number, type: ActionType) => void;
 }
 
-function UserViewer({ users, showdead }: Props) {
+function UserViewer({ users, showdead, action }: Props) {
   return (
     <Table striped hover>
       <thead>
@@ -20,6 +23,7 @@ function UserViewer({ users, showdead }: Props) {
           <th>Epost</th>
           <th>Telefon</th>
           <th>Lever</th>
+          <th className="smallheader">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -45,6 +49,13 @@ function UserViewer({ users, showdead }: Props) {
                     backgroundColor: user.alive ? "green" : "red",
                   }}
                 />
+                <td>
+                  <ButtonGroup>
+                    <Button onClick={() => action(user.id, "Kill")}>
+                      Diska
+                    </Button>
+                  </ButtonGroup>
+                </td>
               </tr>
             );
           })}

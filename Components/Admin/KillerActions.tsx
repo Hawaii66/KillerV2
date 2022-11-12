@@ -4,9 +4,10 @@ import styles from "./admin.module.css";
 
 interface Props {
   randomise: () => void;
+  turn: () => void;
 }
 
-function KillerActions({ randomise }: Props) {
+function KillerActions({ randomise, turn }: Props) {
   const newCircle = () => {
     const answer = prompt(
       "Är du säker på att du vill starta om cirkeln och skicka ut nya sms?\nIsåfall skriv\n\nstarta om"
@@ -16,13 +17,24 @@ function KillerActions({ randomise }: Props) {
     }
   };
 
+  const turnCircel = () => {
+    const answer = prompt(
+      "Är du säker på att du vill vänd cirkeln så att ditt offer blir din mördare? Detta tar ungefär 2 minuter att göra\nIsåfall skriv\n\nvänd"
+    );
+    if (answer !== null && answer === "vänd") {
+      turn();
+    }
+  };
+
   return (
     <div className={styles.spacer}>
       <ButtonGroup aria-label="Basic example">
         <Button variant="danger" onClick={newCircle}>
           Slumpa Ordning
         </Button>
-        <Button variant="secondary">Skicka SMS</Button>
+        <Button variant="warning" onClick={turnCircel}>
+          Vänd Cirkel
+        </Button>
       </ButtonGroup>
     </div>
   );

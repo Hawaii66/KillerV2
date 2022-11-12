@@ -42,3 +42,7 @@
 .header {
     color: var(--main-green);
 }
+
+.smallheader {
+    width: 1vw;
+}

@@ -134,6 +134,22 @@ function Admin() {
     }
   };
 
+  const killUser = async (userId: number) => {
+    const url = `/api/server/case/admin?email=${user.email}&jwt=${user.jwt}&kill=${userId}`;
+    const result = await fetch(url);
+    console.log(result);
+    const newUsers = await result.json();
+    setUsers(newUsers);
+  };
+
+  const turn = async () => {
+    const url = `/api/server/circle/turn?email=${user.email}&jwt=${user.jwt}`;
+    const result = await fetch(url);
+    const newUsers = await result.json();
+    console.log(newUsers);
+    setUsers(newUsers);
+  };
+
   const isAuthed = async (email: string, jwt: string) => {
     const url = `/api/server/admin/check?email=${email}&jwt=${jwt}`;
     const result = await fetch(url);
@@ -178,8 +194,18 @@ function Admin() {
           sort(e);
         }}
       />
-      <UserViewer showdead={showDead} users={users} />
-      <KillerActions randomise={randomise} />
+      <UserViewer
+        showdead={showDead}
+        users={users}
+        action={(userId, type) => {
+          switch (type) {
+            case "Kill":
+              killUser(userId);
+              break;
+          }
+        }}
+      />
+      <KillerActions randomise={randomise} turn={turn} />
       <SmsSend users={users} />
       <Admins email={user.email} jwt={user.jwt} />
     </div>

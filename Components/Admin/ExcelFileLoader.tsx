@@ -57,7 +57,7 @@ function ExcelFileLoader({ setUsers }: Props) {
 
   return (
     <div className={styles.spacer}>
-      <h3>Välj excell fil för att starta om killer: </h3>
+      <h3>Välj excel fil för att starta om killer: </h3>
       <input
         type="file"
         onChange={(e) => {
