@@ -12,6 +12,7 @@ function LoginComp({ visible, setLoggedIn }: Props) {
   });
   return (
     <LoginComp
+      forceRedirectStrategy={true}
       className={visible ? "on" : "off"}
       authCallback={async (e: any, result: any, msal: any) => {
         await fetch("/api/server/temp", {
