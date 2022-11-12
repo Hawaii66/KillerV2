@@ -161,6 +161,7 @@ function Profil() {
 
           hasActiveCase(email, jwt);
         }}
+        msal={msal}
       />
     );
   }

@@ -5,9 +5,10 @@ import styles from "./signin.module.css";
 
 interface Props {
   setLoggedIn: (b: boolean, msal: any, email: string, jwt: string) => void;
+  msal: any;
 }
 
-function SignIn({ setLoggedIn }: Props) {
+function SignIn({ setLoggedIn, msal }: Props) {
   return (
     <div className={styles.wrapper}>
       <h1>Logga in för att se din information</h1>
@@ -17,6 +18,10 @@ function SignIn({ setLoggedIn }: Props) {
       </p>
       <div suppressHydrationWarning={true}>
         <LoginComp visible={true} setLoggedIn={setLoggedIn} />
+      </div>
+      <div>
+        <h1>Om det inte funkar klicka nedan</h1>
+        <button onClick={() => msal.logout()}>Logga Ut</button>
       </div>
     </div>
   );
