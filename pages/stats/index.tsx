@@ -126,8 +126,17 @@ function Stats({ groups }: { groups: GroupStats[] }) {
         }}
       />
       <div className={styles.wrapper}>
-        <select>
-          {groups.map((group, index) => {
+        <select
+          onChange={(e) => {
+            const g = groups.find((i) => i.groupName === e.target.value);
+            if (g === undefined) {
+              return;
+            }
+
+            setSelected(g);
+          }}
+        >
+          {groups.map((group) => {
             return (
               <option key={group.groupName} value={group.groupName}>
                 {group.groupName}
