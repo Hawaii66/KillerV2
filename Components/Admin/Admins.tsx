@@ -61,7 +61,7 @@ function Admins({ email, jwt }: Props) {
 
   useEffect(() => {
     fetchAdmins();
-  }, []);
+  }, [email, jwt]);
 
   return (
     <div className={styles.center}>

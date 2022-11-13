@@ -12,8 +12,17 @@ import SignIn from "../../Components/Profil/SignIn";
 import buttonStyles from "./admin.module.css";
 import Admins from "../../Components/Admin/Admins";
 import HomeInfoEditor from "../../Components/Admin/HomeInfo";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from "@azure/msal-react";
+import {
+  InteractionStatus,
+  InteractionRequiredAuthError,
+} from "@azure/msal-browser";
+import { jwt } from "twilio";
 function Admin() {
-  const [signedIn, setSignedIn] = useState(false);
   const [user, setUser] = useState<{ email: string; jwt: string; msal: any }>({
     email: "",
     jwt: "",
@@ -21,6 +30,7 @@ function Admin() {
   });
   const [users, setUsers] = useState<KillerUser[]>([]);
   const [showDead, setShowDead] = useState<boolean>(false);
+  const { instance, accounts, inProgress } = useMsal();
 
   const sort = (mode: SortMode) => {
     const prevUsers = [...users];
@@ -123,16 +133,52 @@ function Admin() {
     setUsers(data);
   };
 
-  const logout = () => {
-    if (user.msal !== null) {
-      user.msal.logout();
-      setUser({
-        email: "",
-        jwt: "",
-        msal: null,
-      });
-      setSignedIn(false);
+  useEffect(() => {
+    //https://www.daryllukas.me/azure-ad-authentication-using-msal-and-nextjs-react/
+    //https://learn.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-acquire-token?tabs=react
+    if (inProgress === InteractionStatus.None) {
+      const accessTokenRequest = {
+        scopes: ["user.read"],
+        account: accounts[0],
+      };
+      instance
+        .acquireTokenSilent(accessTokenRequest)
+        .then(async (accessTokenResponse) => {
+          const result = await isAuthed(
+            accessTokenResponse.account?.username || "",
+            accessTokenResponse.idToken || ""
+          );
+          console.log(result);
+          if (result) {
+            setUser({
+              email: accessTokenResponse.account?.username || "",
+              jwt: accessTokenResponse.idToken || "",
+              msal: null,
+            });
+            loadGame();
+          } else {
+            instance.logoutRedirect();
+          }
+        })
+        .catch((error) => {
+          if (error instanceof InteractionRequiredAuthError) {
+            alert("Något gick fel med inloggninge, försök igen om en stund");
+          }
+          console.log(error);
+          if (accounts.length > 0) {
+            instance.logoutRedirect();
+          }
+        });
     }
+  }, [accounts, instance, inProgress]);
+
+  const logout = () => {
+    setUser({
+      email: "",
+      jwt: "",
+      msal: null,
+    });
+    instance.logoutRedirect();
   };
 
   const killUser = async (userId: number) => {
@@ -157,61 +203,50 @@ function Admin() {
     return result.status === 200;
   };
 
-  if (!signedIn) {
+  const isLoggedIn = () => {
     return (
-      <SignIn
-        msal={user.msal}
-        setLoggedIn={async (b, msal, email, jwt) => {
-          if (await isAuthed(email, jwt)) {
-            setUser({
-              email,
-              jwt,
-              msal,
-            });
-            setSignedIn(b);
-            loadGame();
-          } else {
-            msal.logout();
-            setSignedIn(false);
-          }
-        }}
-      />
+      <div className={styles.wrapper}>
+        <button className={buttonStyles.button} onClick={logout}>
+          <img src={"./Images/Logut.svg"} />
+        </button>
+        <ExcelFileLoader
+          setUsers={(u) => {
+            setUsers(u);
+            save(u);
+          }}
+        />
+        <UserSorter
+          showDead={(e) => setShowDead(e)}
+          setSortMode={(e) => {
+            sort(e);
+          }}
+        />
+        <UserViewer
+          showdead={showDead}
+          users={users}
+          action={(userId, type) => {
+            switch (type) {
+              case "Kill":
+                killUser(userId);
+                break;
+            }
+          }}
+        />
+        <KillerActions randomise={randomise} turn={turn} />
+        <SmsSend users={users} />
+        <Admins email={user.email} jwt={user.jwt} />
+        <HomeInfoEditor email={user.email} jwt={user.jwt} />
+      </div>
     );
-  }
+  };
 
   return (
-    <div className={styles.wrapper}>
-      <button className={buttonStyles.button} onClick={logout}>
-        <img src={"./Images/Logut.svg"} />
-      </button>
-      <ExcelFileLoader
-        setUsers={(u) => {
-          setUsers(u);
-          save(u);
-        }}
-      />
-      <UserSorter
-        showDead={(e) => setShowDead(e)}
-        setSortMode={(e) => {
-          sort(e);
-        }}
-      />
-      <UserViewer
-        showdead={showDead}
-        users={users}
-        action={(userId, type) => {
-          switch (type) {
-            case "Kill":
-              killUser(userId);
-              break;
-          }
-        }}
-      />
-      <KillerActions randomise={randomise} turn={turn} />
-      <SmsSend users={users} />
-      <Admins email={user.email} jwt={user.jwt} />
-      <HomeInfoEditor email={user.email} jwt={user.jwt} />
-    </div>
+    <>
+      <AuthenticatedTemplate>{isLoggedIn()}</AuthenticatedTemplate>
+      <UnauthenticatedTemplate>
+        <SignIn />
+      </UnauthenticatedTemplate>
+    </>
   );
 }
 
