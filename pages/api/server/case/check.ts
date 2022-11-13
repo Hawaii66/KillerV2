@@ -19,6 +19,7 @@ export default async function handler(
   );
   if (result === false) {
     res.status(400).send("Wrong auth");
+    return;
   }
 
   await connect();

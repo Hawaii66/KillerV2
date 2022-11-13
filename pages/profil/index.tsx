@@ -1,10 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import SignIn from "../../Components/Profil/SignIn";
 import styles from "./profil.module.css";
 import Card from "../../Components/Utils/Card/Card";
 import Button from "../../Components/Utils/Button/Button";
 import ButtonContainer from "../../Components/Utils/Button/ButtonContainer";
+import {
+  AuthenticatedTemplate,
+  UnauthenticatedTemplate,
+  useMsal,
+} from "@azure/msal-react";
+import {
+  InteractionRequiredAuthError,
+  InteractionStatus,
+} from "@azure/msal-browser";
 
 interface KillerProfile {
   name: string;
@@ -34,15 +43,53 @@ function Profil() {
   const [showTarget, setShowTarget] = useState(false);
   const [hasCase, setHasCase] = useState(true);
   const [loading, setLoading] = useState(true);
+  const { accounts, instance, inProgress } = useMsal();
 
-  const [loggedIn, setLoggedIn] = useState(false);
-  const [msal, setMSAL] = useState<any>(null);
+  useEffect(() => {
+    //https://www.daryllukas.me/azure-ad-authentication-using-msal-and-nextjs-react/
+    //https://learn.microsoft.com/en-us/azure/active-directory/develop/scenario-spa-acquire-token?tabs=react
+    if (inProgress === InteractionStatus.None) {
+      const accessTokenRequest = {
+        scopes: ["user.read"],
+        account: accounts[0],
+      };
+      instance
+        .acquireTokenSilent(accessTokenRequest)
+        .then((accessTokenResponse) => {
+          fetchInfo(
+            accessTokenResponse.account?.username || "",
+            accessTokenResponse.idToken
+          );
+          setJWT(jwt);
+
+          hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+        })
+        .catch((error) => {
+          if (error instanceof InteractionRequiredAuthError) {
+            /*instance
+              .acquireTokenRedirect(accessTokenRequest)
+              .then(function (accessTokenResponse: any) {
+                fetchInfo(
+                  accessTokenResponse.account?.username || "",
+                  accessTokenResponse.idToken
+                );
+                setJWT(jwt);
+
+                hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+              })
+              .catch(function (error) {
+                // Acquire token interactive failure
+                console.log(error);
+              });*/
+            alert("Något gick fel med inloggninge, försök igen om en stund");
+          }
+          console.log(error);
+        });
+    }
+  }, [accounts, instance, inProgress]);
 
   const logout = () => {
-    if (msal !== null) {
-      msal.logout();
-    }
-    setLoggedIn(false);
+    instance.logoutRedirect();
   };
 
   const fetchInfo = async (email: string, jwt: string) => {
@@ -150,107 +197,104 @@ function Profil() {
     setLoading(false);
   };
 
-  if (!loggedIn) {
+  const notLoggedIn = () => {
+    return <SignIn />;
+  };
+
+  const loggedInRender = () => {
     return (
-      <SignIn
-        setLoggedIn={(s, m, email, jwt) => {
-          fetchInfo(email, jwt);
-          setLoggedIn(s);
-          setMSAL(m);
-          setJWT(jwt);
-
-          hasActiveCase(email, jwt);
-        }}
-        msal={msal}
-      />
-    );
-  }
-
-  return (
-    <div>
-      {profile.email === "" && (
-        <div className={styles.header}>
-          <h1>Laddar information</h1>
-          <button onClick={logout}>
-            <img src={"./Images/Logut.svg"} />
-          </button>
-        </div>
-      )}
-
-      {profile.email !== "" && (
-        <div>
+      <div>
+        {profile.email === "" && (
           <div className={styles.header}>
-            <h1>{profile.name}</h1>
+            <h1>Laddar information</h1>
             <button onClick={logout}>
               <img src={"./Images/Logut.svg"} />
             </button>
           </div>
-          <ButtonContainer loading={loading}>
-            {!hasCase ? (
-              <>
-                <Button onClick={hasMurdered}>
-                  Jag <b>har</b> mördat
-                </Button>
-                <Button onClick={gotMurdered}>
-                  Jag <b>blev</b> mördad
-                </Button>
-              </>
-            ) : (
-              <Button onClick={clearActiveCase}>Rensa mord</Button>
-            )}
-          </ButtonContainer>
-          <Card>
-            <h3>Status:</h3>
-            <p>{profile.alive ? "Levande" : "Död"}</p>
-            <h3>{profile.alive ? "Du har dödat:" : "Du dödade:"}</h3>
-            <p>{profile.kills} st</p>
-            {profile.alive && (
-              <>
-                {" "}
-                <div className={styles.flexrow}>
-                  <h3 className={styles.flexrowtext}>Ditt offer är:</h3>
-                </div>
-                <div
-                  style={{
-                    display: "flex",
-                    flexDirection: "row",
-                  }}
-                >
-                  <button
-                    className={styles.targetbutton}
-                    onClick={() => {
-                      setShowTarget((t) => !t);
+        )}
+
+        {profile.email !== "" && (
+          <div>
+            <div className={styles.header}>
+              <h1>{profile.name}</h1>
+              <button onClick={logout}>
+                <img src={"./Images/Logut.svg"} />
+              </button>
+            </div>
+            <ButtonContainer loading={loading}>
+              {!hasCase ? (
+                <>
+                  <Button onClick={hasMurdered}>
+                    Jag <b>har</b> mördat
+                  </Button>
+                  <Button onClick={gotMurdered}>
+                    Jag <b>blev</b> mördad
+                  </Button>
+                </>
+              ) : (
+                <Button onClick={clearActiveCase}>Rensa mord</Button>
+              )}
+            </ButtonContainer>
+            <Card>
+              <h3>Status:</h3>
+              <p>{profile.alive ? "Levande" : "Död"}</p>
+              <h3>{profile.alive ? "Du har dödat:" : "Du dödade:"}</h3>
+              <p>{profile.kills} st</p>
+              {profile.alive && (
+                <>
+                  {" "}
+                  <div className={styles.flexrow}>
+                    <h3 className={styles.flexrowtext}>Ditt offer är:</h3>
+                  </div>
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "row",
                     }}
                   >
-                    <img
-                      src={`/Images/Eye${showTarget ? "Show" : "Hide"}.svg`}
-                      style={{
-                        width: "2rem",
-                        height: "2rem",
+                    <button
+                      className={styles.targetbutton}
+                      onClick={() => {
+                        setShowTarget((t) => !t);
                       }}
-                    />
-                  </button>
-                  <p>
-                    {showTarget
-                      ? `${profile.target} i klass ${profile.targetGroup}`
-                      : "- - - ? - - -"}
-                  </p>
-                </div>
-              </>
-            )}
-          </Card>
+                    >
+                      <img
+                        src={`/Images/Eye${showTarget ? "Show" : "Hide"}.svg`}
+                        style={{
+                          width: "2rem",
+                          height: "2rem",
+                        }}
+                      />
+                    </button>
+                    <p>
+                      {showTarget
+                        ? `${profile.target} i klass ${profile.targetGroup}`
+                        : "- - - ? - - -"}
+                    </p>
+                  </div>
+                </>
+              )}
+            </Card>
 
-          <Card>
-            <h3>Email:</h3>
-            <p>{profile.email}</p>
-            <h3>Telefonnummer:</h3>
-            <p>{profile.phone}</p>
-            <h3>Klass:</h3>
-            <p>{profile.group}</p>
-          </Card>
-        </div>
-      )}
-    </div>
+            <Card>
+              <h3>Email:</h3>
+              <p>{profile.email}</p>
+              <h3>Telefonnummer:</h3>
+              <p>{profile.phone}</p>
+              <h3>Klass:</h3>
+              <p>{profile.group}</p>
+            </Card>
+          </div>
+        )}
+      </div>
+    );
+  };
+
+  return (
+    <>
+      <AuthenticatedTemplate>{loggedInRender()}</AuthenticatedTemplate>
+      <UnauthenticatedTemplate>{notLoggedIn()}</UnauthenticatedTemplate>
+    </>
   );
 }
 

@@ -2,13 +2,9 @@ import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import LoginComp from "./LoginComp";
 import styles from "./signin.module.css";
+import SignInTest from "./SignInTest";
 
-interface Props {
-  setLoggedIn: (b: boolean, msal: any, email: string, jwt: string) => void;
-  msal: any;
-}
-
-function SignIn({ setLoggedIn, msal }: Props) {
+function SignIn() {
   const removeTokens = () => {
     localStorage.clear();
     sessionStorage.clear();
@@ -27,8 +23,11 @@ function SignIn({ setLoggedIn, msal }: Props) {
         Du måste logga in med din skol email för att vi ska kunna vertifiera
         dig.
       </p>
-      <div suppressHydrationWarning={true}>
+      {/*<div suppressHydrationWarning={true}>
         <LoginComp visible={true} setLoggedIn={setLoggedIn} />
+  </div>*/}
+      <div>
+        <SignInTest />
       </div>
       <div>
         <h1>
@@ -37,7 +36,6 @@ function SignIn({ setLoggedIn, msal }: Props) {
         <button
           onClick={() => {
             removeTokens();
-            msal?.logout();
           }}
         >
           Rensa Cookies

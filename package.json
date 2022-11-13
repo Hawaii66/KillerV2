@@ -10,6 +10,8 @@
     },
     "dependencies": {
         "@azure/communication-sms": "^1.0.0",
+        "@azure/msal-browser": "^2.31.0",
+        "@azure/msal-react": "^1.4.10",
         "@microsoft/microsoft-graph-client": "^3.0.2",
         "@types/react-bootstrap": "^0.32.31",
         "@vercel/analytics": "^0.1.4",

@@ -31,7 +31,7 @@ export const ValidateToken = async (accessToken: string, email: string) => {
     return false;
   }
 
-  if (decoded === null || decoded.email !== email) {
+  if (decoded === null || decoded.preferred_username !== email) {
     return false;
   }
 
