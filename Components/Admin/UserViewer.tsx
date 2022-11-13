@@ -47,8 +47,11 @@ function UserViewer({ users, showdead, action }: Props) {
                 <td
                   style={{
                     backgroundColor: user.alive ? "green" : "red",
+                    fontSize: 0,
                   }}
-                />
+                >
+                  {user.alive ? 1 : 0}
+                </td>
                 <td>
                   <ButtonGroup>
                     <Button onClick={() => action(user.id, "Kill")}>

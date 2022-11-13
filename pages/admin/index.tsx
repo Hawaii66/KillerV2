@@ -22,6 +22,7 @@ import {
   InteractionRequiredAuthError,
 } from "@azure/msal-browser";
 import { jwt } from "twilio";
+import { utils, WorkBook, writeFile, writeXLSX } from "xlsx";
 function Admin() {
   const [user, setUser] = useState<{ email: string; jwt: string; msal: any }>({
     email: "",
@@ -203,6 +204,18 @@ function Admin() {
     return result.status === 200;
   };
 
+  const download = () => {
+    const table = document.querySelector("table");
+    console.log(table);
+    var workbook = utils.table_to_book(table);
+    var ws = workbook.Sheets["Sheet1"];
+    utils.sheet_add_aoa(ws, [["Created " + new Date().toISOString()]], {
+      origin: -1,
+    });
+
+    writeFile(workbook, "Test.xlsb");
+  };
+
   const isLoggedIn = () => {
     return (
       <div className={styles.wrapper}>
@@ -232,7 +245,7 @@ function Admin() {
             }
           }}
         />
-        <KillerActions randomise={randomise} turn={turn} />
+        <KillerActions download={download} randomise={randomise} turn={turn} />
         <SmsSend users={users} />
         <Admins email={user.email} jwt={user.jwt} />
         <HomeInfoEditor email={user.email} jwt={user.jwt} />

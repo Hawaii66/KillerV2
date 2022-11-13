@@ -5,9 +5,10 @@ import styles from "./admin.module.css";
 interface Props {
   randomise: () => void;
   turn: () => void;
+  download: () => void;
 }
 
-function KillerActions({ randomise, turn }: Props) {
+function KillerActions({ randomise, turn, download }: Props) {
   const newCircle = () => {
     const answer = prompt(
       "Är du säker på att du vill starta om cirkeln och skicka ut nya sms?\nIsåfall skriv\n\nstarta om"
@@ -34,6 +35,9 @@ function KillerActions({ randomise, turn }: Props) {
         </Button>
         <Button variant="warning" onClick={turnCircel}>
           Vänd Cirkel
+        </Button>
+        <Button variant="info" onClick={download}>
+          Ladda Ner
         </Button>
       </ButtonGroup>
     </div>
