@@ -66,7 +66,7 @@ function Profil() {
         })
         .catch((error) => {
           if (error instanceof InteractionRequiredAuthError) {
-            /*instance
+            instance
               .acquireTokenRedirect(accessTokenRequest)
               .then(function (accessTokenResponse: any) {
                 fetchInfo(
@@ -80,7 +80,7 @@ function Profil() {
               .catch(function (error) {
                 // Acquire token interactive failure
                 console.log(error);
-              });*/
+              });
             alert("Något gick fel med inloggninge, försök igen om en stund");
           }
           console.log(error);
