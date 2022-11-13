@@ -8,11 +8,13 @@ import {
   CategoryScale,
   LinearScale,
   Title,
+  PointElement,
+  LineElement,
 } from "chart.js";
-import { Bar, Pie } from "react-chartjs-2";
+import { Bar, Line, Pie } from "react-chartjs-2";
 import useWindowSize from "../../Hooks/WindowSize";
 import { connect, dbs } from "../../utils/DBConnection";
-import { KillerUser } from "../../Interfaces/Interfaces";
+import { ConfirmedKill, KillerUser } from "../../Interfaces/Interfaces";
 import styles from "./stats.module.css";
 
 interface GroupStats {
@@ -28,7 +30,9 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  ArcElement
+  ArcElement,
+  PointElement,
+  LineElement
 );
 
 const optionsAlive = {
@@ -83,12 +87,61 @@ const optionsKills = {
   },
 };
 
-function Stats({ groups }: { groups: GroupStats[] }) {
+function Stats({
+  groups,
+  kills,
+  days,
+}: {
+  groups: GroupStats[];
+  kills: KillerUser[];
+  days: { kills: number; day: number; month: number }[];
+}) {
   const size = useWindowSize();
   const [selectedGroup, setSelected] = useState<GroupStats>(groups[0]);
 
   return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
+      <Line
+        options={{
+          responsive: true,
+          plugins: {
+            legend: {
+              position: "top",
+            },
+            title: {
+              display: true,
+              text: "Kills per dag",
+            },
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: (i: any) => {
+                  if (i % 1 === 0) {
+                    return i;
+                  }
+                  return undefined;
+                },
+              },
+            },
+          },
+        }}
+        data={{
+          labels: days.map((i) => {
+            return `${i.day}/${i.month}`;
+          }),
+
+          datasets: [
+            {
+              label: "Kills",
+              borderColor: "rgba(225, 77, 42, 0.3)",
+              backgroundColor: "rgba(225, 77, 42, 0.6)",
+              data: days.map((day) => day.kills),
+            },
+          ],
+        }}
+      />
       <Bar
         height={size.width < 800 ? 800 : 300}
         options={optionsAlive}
@@ -125,6 +178,23 @@ function Stats({ groups }: { groups: GroupStats[] }) {
           ],
         }}
       />
+      {kills.length > 0 && (
+        <Bar
+          height={size.width < 800 ? 800 : 300}
+          options={optionsKills}
+          data={{
+            labels: kills.map((i) => i.name),
+            datasets: [
+              {
+                label: "Kills",
+                data: kills.map((i) => i.kills),
+                backgroundColor: "rgba(98, 79, 130, 0.3)",
+                stack: "Stack 0",
+              },
+            ],
+          }}
+        />
+      )}
       <div className={styles.wrapper}>
         <select
           onChange={(e) => {
@@ -199,8 +269,10 @@ export async function getServerSideProps() {
     groups[user.group].groupName = user.group;
   });
 
+  const mostKills = [...users].sort((a, b) => b.kills - a.kills);
+
   var finals: GroupStats[] = [];
-  for (const [key, value] of Object.entries(groups)) {
+  for (const [_, value] of Object.entries(groups)) {
     finals.push(value);
   }
 
@@ -215,9 +287,43 @@ export async function getServerSideProps() {
     }
   }
 
+  const killsEveryDay: {
+    [key: number]: { kills: number; day: number; month: number };
+  } = {};
+
+  const allKills = await dbs.confirmed.find();
+  allKills.sort((a, b) => a.time - b.time);
+  allKills.forEach((confirmed: ConfirmedKill) => {
+    const time = new Date(confirmed.time);
+
+    const key = time.getMonth() * 1000 + time.getDate();
+    if (killsEveryDay[key] === undefined) {
+      killsEveryDay[key] = {
+        day: time.getDate(),
+        kills: 1,
+        month: time.getMonth(),
+      };
+    } else {
+      killsEveryDay[key].kills += 1;
+    }
+  });
+  var finalDays = [];
+  for (const [_, value] of Object.entries(killsEveryDay)) {
+    finalDays.push(value);
+  }
+
   return {
     props: {
       groups: finals,
+      kills: [...mostKills.splice(0, 10)]
+        .filter((i) => i.kills > 0)
+        .map((i) => {
+          return {
+            name: i.name,
+            kills: i.kills,
+          };
+        }),
+      days: finalDays,
     },
   };
 }

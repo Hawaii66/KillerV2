@@ -23,3 +23,9 @@ export interface HomeInfo {
   text?: string;
   id: string;
 }
+
+export interface ConfirmedKill {
+  murder: string;
+  target: string;
+  time: number;
+}
