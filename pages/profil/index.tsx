@@ -69,6 +69,7 @@ function Profil() {
             instance
               .acquireTokenRedirect(accessTokenRequest)
               .then(function (accessTokenResponse: any) {
+                console.log(accessTokenResponse);
                 fetchInfo(
                   accessTokenResponse.account?.username || "",
                   accessTokenResponse.idToken
@@ -80,8 +81,10 @@ function Profil() {
               .catch(function (error) {
                 // Acquire token interactive failure
                 console.log(error);
+                alert(
+                  "Något gick fel med inloggninge, försök igen om en stund"
+                );
               });
-            alert("Något gick fel med inloggninge, försök igen om en stund");
           }
           console.log(error);
         });
