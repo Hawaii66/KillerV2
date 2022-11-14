@@ -144,7 +144,7 @@ function Admin() {
       };
       instance
         .acquireTokenSilent(accessTokenRequest)
-        .then(async (accessTokenResponse) => {
+        .then(async (accessTokenResponse:any) => {
           const result = await isAuthed(
             accessTokenResponse.account?.username || "",
             accessTokenResponse.idToken || ""
@@ -161,7 +161,7 @@ function Admin() {
             instance.logoutRedirect();
           }
         })
-        .catch((error) => {
+        .catch((error:any) => {
           if (error instanceof InteractionRequiredAuthError) {
             instance
               .acquireTokenRedirect(accessTokenRequest)
@@ -182,7 +182,7 @@ function Admin() {
                   instance.logoutRedirect();
                 }
               })
-              .catch(function (error) {
+              .catch(function (error:any) {
                 // Acquire token interactive failure
                 console.log(error);
                 alert(

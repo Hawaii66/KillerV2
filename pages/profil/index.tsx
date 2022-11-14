@@ -55,30 +55,32 @@ function Profil() {
       };
       instance
         .acquireTokenSilent(accessTokenRequest)
-        .then((accessTokenResponse) => {
-          fetchInfo(
-            accessTokenResponse.account?.username || "",
-            accessTokenResponse.idToken
-          );
-          setJWT(jwt);
+        .then((accessTokenResponse: any) => {
+          const tempJWt = accessTokenResponse.idToken;
+          fetchInfo(accessTokenResponse.account?.username || "", tempJWt);
+          setJWT(tempJWt);
 
-          hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+          hasActiveCase(accessTokenResponse.account?.username || "", tempJWt);
         })
-        .catch((error) => {
+        .catch((error: any) => {
           if (error instanceof InteractionRequiredAuthError) {
             instance
               .acquireTokenRedirect(accessTokenRequest)
               .then(function (accessTokenResponse: any) {
                 console.log(accessTokenResponse);
+                const tempTempJWT = accessTokenResponse.idToken;
                 fetchInfo(
                   accessTokenResponse.account?.username || "",
-                  accessTokenResponse.idToken
+                  tempTempJWT
                 );
-                setJWT(jwt);
+                setJWT(tempTempJWT);
 
-                hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+                hasActiveCase(
+                  accessTokenResponse.account?.username || "",
+                  tempTempJWT
+                );
               })
-              .catch(function (error) {
+              .catch(function (error: any) {
                 // Acquire token interactive failure
                 console.log(error);
                 alert(
