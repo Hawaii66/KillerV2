@@ -165,22 +165,22 @@ function Admin() {
           if (error instanceof InteractionRequiredAuthError) {
             instance
               .acquireTokenRedirect(accessTokenRequest)
-              .then(function (accessTokenResponse: any) {
+              .then(async (accessTokenResponse: any)=> {
                 const result = await isAuthed(
-            accessTokenResponse.account?.username || "",
-            accessTokenResponse.idToken || ""
-          );
-          console.log(result);
-          if (result) {
-            setUser({
-              email: accessTokenResponse.account?.username || "",
-              jwt: accessTokenResponse.idToken || "",
-              msal: null,
-            });
-            loadGame();
-          } else {
-            instance.logoutRedirect();
-          }
+                  accessTokenResponse.account?.username || "",
+                  accessTokenResponse.idToken || ""
+                );
+                console.log(result);
+                if (result) {
+                  setUser({
+                    email: accessTokenResponse.account?.username || "",
+                    jwt: accessTokenResponse.idToken || "",
+                    msal: null,
+                  });
+                  loadGame();
+                } else {
+                  instance.logoutRedirect();
+                }
               })
               .catch(function (error) {
                 // Acquire token interactive failure
