@@ -163,7 +163,25 @@ function Admin() {
         })
         .catch((error) => {
           if (error instanceof InteractionRequiredAuthError) {
-            alert("Något gick fel med inloggninge, försök igen om en stund");
+            instance
+              .acquireTokenRedirect(accessTokenRequest)
+              .then(function (accessTokenResponse: any) {
+                console.log(accessTokenResponse);
+                fetchInfo(
+                  accessTokenResponse.account?.username || "",
+                  accessTokenResponse.idToken
+                );
+                setJWT(jwt);
+
+                hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+              })
+              .catch(function (error) {
+                // Acquire token interactive failure
+                console.log(error);
+                alert(
+                  "Något gick fel med inloggninge, försök igen om en stund"
+                );
+              });
           }
           console.log(error);
           if (accounts.length > 0) {
