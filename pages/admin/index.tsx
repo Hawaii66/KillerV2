@@ -166,14 +166,21 @@ function Admin() {
             instance
               .acquireTokenRedirect(accessTokenRequest)
               .then(function (accessTokenResponse: any) {
-                console.log(accessTokenResponse);
-                fetchInfo(
-                  accessTokenResponse.account?.username || "",
-                  accessTokenResponse.idToken
-                );
-                setJWT(jwt);
-
-                hasActiveCase(accessTokenResponse.account?.username || "", jwt);
+                const result = await isAuthed(
+            accessTokenResponse.account?.username || "",
+            accessTokenResponse.idToken || ""
+          );
+          console.log(result);
+          if (result) {
+            setUser({
+              email: accessTokenResponse.account?.username || "",
+              jwt: accessTokenResponse.idToken || "",
+              msal: null,
+            });
+            loadGame();
+          } else {
+            instance.logoutRedirect();
+          }
               })
               .catch(function (error) {
                 // Acquire token interactive failure
