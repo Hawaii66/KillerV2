@@ -15,7 +15,6 @@ export default function Home({ posts }: { posts: HomeInfo[] }) {
         description="Killers nya offeciella hemsida. Följ Killer genom hela eventet och missa aldrig nästa sak"
       />
       <div className="home">
-        <h2 className="soon">KILLER startar Mån kl 7:00</h2>
         <div>
           {posts.map((i, index) => {
             return <Info info={i} key={index} />;
