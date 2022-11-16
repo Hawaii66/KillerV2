@@ -150,13 +150,13 @@ function Stats({
           datasets: [
             {
               label: "Döda",
-              data: groups.map((i) => i.total - i.alive),
+              data: groups.splice(1,groups.length).map((i) => i.total - i.alive),
               backgroundColor: "rgba(225, 77, 42, 0.3)",
               stack: "Stack 0",
             },
             {
               label: "Levande",
-              data: groups.map((i) => i.alive),
+              data: groups.splice(1,groups.length).map((i) => i.alive),
               backgroundColor: "rgba(130, 205, 71, 0.3)",
               stack: "Stack 0",
             },
