@@ -286,6 +286,13 @@ export async function getServerSideProps() {
       finals.splice(i, 1);
     }
   }
+  
+  finals = [{
+    alive:users.filter(a=>a.alive).length,
+    groupName:"Alla",
+    kills:0,
+    total:users.length
+  },...finals];
 
   const killsEveryDay: {
     [key: number]: { kills: number; day: number; month: number };
