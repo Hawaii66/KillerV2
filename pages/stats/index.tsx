@@ -167,11 +167,11 @@ function Stats({
         height={size.width < 800 ? 800 : 300}
         options={optionsKills}
         data={{
-          labels: groups.map((i) => i.groupName),
+          labels: groups.slice(1,groups.length).map((i) => i.groupName),
           datasets: [
             {
-              label: "Kills",
-              data: groups.map((i) => i.kills),
+              label: "Kills: " + groups.reduce((prev,curr)=>prev+curr.kills).toString(),
+              data: groups.slice(1,groups.length).map((i) => i.kills),
               backgroundColor: "rgba(98, 79, 130, 0.3)",
               stack: "Stack 0",
             },
