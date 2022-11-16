@@ -146,17 +146,17 @@ function Stats({
         height={size.width < 800 ? 800 : 300}
         options={optionsAlive}
         data={{
-          labels: groups.map((i) => i.groupName),
+          labels: groups.slice(1,groups.length).map((i) => i.groupName),
           datasets: [
             {
               label: "Döda",
-              data: groups.splice(1,groups.length).map((i) => i.total - i.alive),
+              data: groups.slice(1,groups.length).map((i) => i.total - i.alive),
               backgroundColor: "rgba(225, 77, 42, 0.3)",
               stack: "Stack 0",
             },
             {
               label: "Levande",
-              data: groups.splice(1,groups.length).map((i) => i.alive),
+              data: groups.slice(1,groups.length).map((i) => i.alive),
               backgroundColor: "rgba(130, 205, 71, 0.3)",
               stack: "Stack 0",
             },
