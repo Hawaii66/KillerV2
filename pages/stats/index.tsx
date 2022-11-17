@@ -170,7 +170,7 @@ function Stats({
           labels: groups.slice(1,groups.length).map((i) => i.groupName),
           datasets: [
             {
-              label: "Kills: " + groups.reduce((prev,curr)=>prev+curr.kills).toString(),
+              label: "Kills",
               data: groups.slice(1,groups.length).map((i) => i.kills),
               backgroundColor: "rgba(98, 79, 130, 0.3)",
               stack: "Stack 0",
