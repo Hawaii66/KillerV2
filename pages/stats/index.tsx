@@ -146,17 +146,17 @@ function Stats({
         height={size.width < 800 ? 800 : 300}
         options={optionsAlive}
         data={{
-          labels: groups.map((i) => i.groupName),
+          labels: groups.slice(1,groups.length).map((i) => i.groupName),
           datasets: [
             {
               label: "Döda",
-              data: groups.map((i) => i.total - i.alive),
+              data: groups.slice(1,groups.length).map((i) => i.total - i.alive),
               backgroundColor: "rgba(225, 77, 42, 0.3)",
               stack: "Stack 0",
             },
             {
               label: "Levande",
-              data: groups.map((i) => i.alive),
+              data: groups.slice(1,groups.length).map((i) => i.alive),
               backgroundColor: "rgba(130, 205, 71, 0.3)",
               stack: "Stack 0",
             },
@@ -167,11 +167,11 @@ function Stats({
         height={size.width < 800 ? 800 : 300}
         options={optionsKills}
         data={{
-          labels: groups.map((i) => i.groupName),
+          labels: groups.slice(1,groups.length).map((i) => i.groupName),
           datasets: [
             {
               label: "Kills",
-              data: groups.map((i) => i.kills),
+              data: groups.slice(1,groups.length).map((i) => i.kills),
               backgroundColor: "rgba(98, 79, 130, 0.3)",
               stack: "Stack 0",
             },
@@ -286,6 +286,13 @@ export async function getServerSideProps() {
       finals.splice(i, 1);
     }
   }
+  
+  finals = [{
+    alive:users.filter(a=>a.alive).length,
+    groupName:"Alla",
+    kills:0,
+    total:users.length
+  },...finals];
 
   const killsEveryDay: {
     [key: number]: { kills: number; day: number; month: number };

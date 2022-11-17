@@ -144,7 +144,7 @@ function Admin() {
       };
       instance
         .acquireTokenSilent(accessTokenRequest)
-        .then(async (accessTokenResponse) => {
+        .then(async (accessTokenResponse:any) => {
           const result = await isAuthed(
             accessTokenResponse.account?.username || "",
             accessTokenResponse.idToken || ""
@@ -161,9 +161,34 @@ function Admin() {
             instance.logoutRedirect();
           }
         })
-        .catch((error) => {
+        .catch((error:any) => {
           if (error instanceof InteractionRequiredAuthError) {
-            alert("Något gick fel med inloggninge, försök igen om en stund");
+            instance
+              .acquireTokenRedirect(accessTokenRequest)
+              .then(async (accessTokenResponse: any)=> {
+                const result = await isAuthed(
+                  accessTokenResponse.account?.username || "",
+                  accessTokenResponse.idToken || ""
+                );
+                console.log(result);
+                if (result) {
+                  setUser({
+                    email: accessTokenResponse.account?.username || "",
+                    jwt: accessTokenResponse.idToken || "",
+                    msal: null,
+                  });
+                  loadGame();
+                } else {
+                  instance.logoutRedirect();
+                }
+              })
+              .catch(function (error:any) {
+                // Acquire token interactive failure
+                console.log(error);
+                alert(
+                  "Något gick fel med inloggninge, försök igen om en stund"
+                );
+              });
           }
           console.log(error);
           if (accounts.length > 0) {

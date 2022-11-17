@@ -141,14 +141,14 @@ function HomeInfoEditor({ email, jwt }: { email: string; jwt: string }) {
           <Button
             onClick={() =>
               setPosts((old) => [
-                ...old,
                 {
                   imageUrl: "",
                   title: "",
                   miniHeader: "",
                   text: "",
                   id: "",
-                },
+                },      
+                ...old,  
               ])
             }
             variant="info"
