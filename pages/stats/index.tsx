@@ -40,7 +40,7 @@ const optionsAlive = {
   plugins: {
     title: {
       display: true,
-      text: "Antal levand i klasserna",
+      text: "Klicka på de färgade rutorna för att gömma en färg",
     },
   },
   maintainAspectRation: false,
@@ -142,42 +142,6 @@ function Stats({
           ],
         }}
       />
-      <Bar
-        height={size.width < 800 ? 800 : 300}
-        options={optionsAlive}
-        data={{
-          labels: groups.slice(1,groups.length).map((i) => i.groupName),
-          datasets: [
-            {
-              label: "Döda",
-              data: groups.slice(1,groups.length).map((i) => i.total - i.alive),
-              backgroundColor: "rgba(225, 77, 42, 0.3)",
-              stack: "Stack 0",
-            },
-            {
-              label: "Levande",
-              data: groups.slice(1,groups.length).map((i) => i.alive),
-              backgroundColor: "rgba(130, 205, 71, 0.3)",
-              stack: "Stack 0",
-            },
-          ],
-        }}
-      />
-      <Bar
-        height={size.width < 800 ? 800 : 300}
-        options={optionsKills}
-        data={{
-          labels: groups.slice(1,groups.length).map((i) => i.groupName),
-          datasets: [
-            {
-              label: "Kills",
-              data: groups.slice(1,groups.length).map((i) => i.kills),
-              backgroundColor: "rgba(98, 79, 130, 0.3)",
-              stack: "Stack 0",
-            },
-          ],
-        }}
-      />
       {kills.length > 0 && (
         <Bar
           height={size.width < 800 ? 800 : 300}
@@ -195,6 +159,44 @@ function Stats({
           }}
         />
       )}
+      <Bar
+        height={size.width < 800 ? 800 : 300}
+        options={optionsAlive}
+        data={{
+          labels: groups.slice(1, groups.length).map((i) => i.groupName),
+          datasets: [
+            {
+              label: "Levande",
+              data: groups.slice(1, groups.length).map((i) => i.alive),
+              backgroundColor: "rgba(130, 205, 71, 0.3)",
+              stack: "Stack 0",
+            },
+            {
+              label: "Döda",
+              data: groups
+                .slice(1, groups.length)
+                .map((i) => i.total - i.alive),
+              backgroundColor: "rgba(225, 77, 42, 0.3)",
+              stack: "Stack 0",
+            },
+          ],
+        }}
+      />
+      <Bar
+        height={size.width < 800 ? 800 : 300}
+        options={optionsKills}
+        data={{
+          labels: groups.slice(1, groups.length).map((i) => i.groupName),
+          datasets: [
+            {
+              label: "Kills",
+              data: groups.slice(1, groups.length).map((i) => i.kills),
+              backgroundColor: "rgba(98, 79, 130, 0.3)",
+              stack: "Stack 0",
+            },
+          ],
+        }}
+      />
       <div className={styles.wrapper}>
         <select
           onChange={(e) => {
@@ -286,13 +288,16 @@ export async function getServerSideProps() {
       finals.splice(i, 1);
     }
   }
-  
-  finals = [{
-    alive:users.filter(a=>a.alive).length,
-    groupName:"Alla",
-    kills:0,
-    total:users.length
-  },...finals];
+
+  finals = [
+    {
+      alive: users.filter((a) => a.alive).length,
+      groupName: "Alla",
+      kills: 0,
+      total: users.length,
+    },
+    ...finals,
+  ];
 
   const killsEveryDay: {
     [key: number]: { kills: number; day: number; month: number };
