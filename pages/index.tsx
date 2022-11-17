@@ -14,6 +14,7 @@ export default function Home({ posts }: { posts: HomeInfo[] }) {
         title={`KILLER ${new Date(Date.now()).getFullYear()}`}
         description="Killers nya offeciella hemsida. Följ Killer genom hela eventet och missa aldrig nästa sak"
       />
+      <br />
       <div className="home">
         <div>
           {posts.map((i, index) => {
