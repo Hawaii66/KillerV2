@@ -280,7 +280,7 @@ function Admin() {
 
   return (
     <>
-      {/*<AuthenticatedTemplate>{isLoggedIn()}</AuthenticatedTemplate>*/}
+      <AuthenticatedTemplate>{isLoggedIn()}</AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <SignIn />
       </UnauthenticatedTemplate>
