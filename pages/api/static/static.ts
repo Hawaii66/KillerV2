@@ -129,6 +129,10 @@ export const data: Data = {
       title: "Automatisk diskning och ändring av cirkeln",
       data: "<p>Förändringar på cirkeln kan komma att ske under spelets gång, håll utkik på instagram @enskildakaren</p>",
     },
+    {
+      title:"Tvistemål",
+      data:"<p>Är du med i ett tvistemål får du <b>inte</b> döda ditt offer.</p>"
+    }
   ],
 };
 
