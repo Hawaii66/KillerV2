@@ -255,7 +255,9 @@ function Admin() {
 
   return (
     <>
-      <AuthenticatedTemplate>{isLoggedIn()}</AuthenticatedTemplate>
+      <AuthenticatedTemplate>
+        {user.email === "" ? <h1>Laddar ...</h1> : isLoggedIn()}
+      </AuthenticatedTemplate>
       <UnauthenticatedTemplate>
         <SignIn />
       </UnauthenticatedTemplate>
