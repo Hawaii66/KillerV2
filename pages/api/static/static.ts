@@ -131,7 +131,7 @@ export const data: Data = {
     },
     {
       title:"Tvistemål",
-      data:"<p>Är du med i ett tvistemål får du <b>inte</b> döda ditt offer.</p>"
+      data:"<p>Är du med i ett tvistemål får du <b>inte</b> döda ditt offer. Mördaren får alltså inte döda sitt offer och offret får inte döda sitt offer.</p>"
     }
   ],
 };
