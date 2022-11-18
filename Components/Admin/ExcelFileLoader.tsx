@@ -38,7 +38,7 @@ function ExcelFileLoader({ setUsers }: Props) {
       d.forEach((u: any) => {
         users.push({
           target: -1,
-          alive: true,
+          alive: "Alive",
           kills: 0,
           schoolEmail: u["E-post"],
           email: u["Email (Mailen du använder skola eller privat)"],
@@ -47,6 +47,7 @@ function ExcelFileLoader({ setUsers }: Props) {
           member: u["Är du medlem i Enskildakåren"] === "Ja",
           name: u["Namn (För & efternamn)"],
           phone: u["Telefonnummer"],
+          killsDead: 0,
         });
         index += 1;
       });
