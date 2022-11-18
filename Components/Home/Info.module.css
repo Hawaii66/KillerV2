@@ -74,17 +74,17 @@
 .text {
     padding-top: 1rem;
     padding-bottom: 1rem;
-    font-size: 1.8rem !important;
+    font-size: 1.4rem !important;
     color: var(--text-color) !important;
 }
 
 .text b {
-    font-size: 2rem !important;
+    font-size: 8rem !important;
     font-weight: 900;
 }
 
 .text i {
-    font-size: 1.7rem !important;
+    font-size: 1.2rem !important;
 }
 
 .text ul {
