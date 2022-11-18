@@ -1,3 +1,5 @@
+export type Circle = "None" | "Dead" | "Alive";
+
 export interface RuleInfo {
   data: React.ReactNode;
   title: string;
@@ -12,8 +14,9 @@ export interface KillerUser {
   group: string;
   phone: string;
   member: boolean;
-  alive: boolean;
+  alive: Circle;
   kills: number;
+  killsDead: number;
 }
 
 export interface HomeInfo {

@@ -16,12 +16,15 @@ import useWindowSize from "../../Hooks/WindowSize";
 import { connect, dbs } from "../../utils/DBConnection";
 import { ConfirmedKill, KillerUser } from "../../Interfaces/Interfaces";
 import styles from "./stats.module.css";
+import { isAlive, isDead } from "../../utils/Utilts";
 
 interface GroupStats {
   groupName: string;
-  kills: number;
-  alive: number;
-  total: number;
+  killsAlive: number;
+  killsDead: number;
+  aliveAlive: number;
+  aliveDead: number;
+  totalAlive: number;
 }
 ChartJS.register(
   CategoryScale,
@@ -98,6 +101,7 @@ function Stats({
 }) {
   const size = useWindowSize();
   const [selectedGroup, setSelected] = useState<GroupStats>(groups[0]);
+  const [isAliveGroup, setGroup] = useState(true);
 
   return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
@@ -167,7 +171,9 @@ function Stats({
           datasets: [
             {
               label: "Levande",
-              data: groups.slice(1, groups.length).map((i) => i.alive),
+              data: groups
+                .slice(1, groups.length)
+                .map((i) => (isAliveGroup ? i.aliveAlive : i.aliveDead)),
               backgroundColor: "rgba(130, 205, 71, 0.3)",
               stack: "Stack 0",
             },
@@ -175,7 +181,7 @@ function Stats({
               label: "Döda",
               data: groups
                 .slice(1, groups.length)
-                .map((i) => i.total - i.alive),
+                .map((i) => i.totalAlive - i.aliveAlive),
               backgroundColor: "rgba(225, 77, 42, 0.3)",
               stack: "Stack 0",
             },
@@ -190,7 +196,7 @@ function Stats({
           datasets: [
             {
               label: "Kills",
-              data: groups.slice(1, groups.length).map((i) => i.kills),
+              data: groups.slice(1, groups.length).map((i) => i.killsAlive),
               backgroundColor: "rgba(98, 79, 130, 0.3)",
               stack: "Stack 0",
             },
@@ -224,15 +230,15 @@ function Stats({
           }}
           data={{
             labels: [
-              `Levande: ${selectedGroup.alive}`,
-              `Döda: ${selectedGroup.total - selectedGroup.alive}`,
+              `Levande: ${selectedGroup.aliveAlive}`,
+              `Döda: ${selectedGroup.totalAlive - selectedGroup.aliveAlive}`,
             ],
             datasets: [
               {
                 label: "Antal levande",
                 data: [
-                  selectedGroup.alive,
-                  selectedGroup.total - selectedGroup.alive,
+                  selectedGroup.aliveAlive,
+                  selectedGroup.totalAlive - selectedGroup.aliveAlive,
                 ],
                 backgroundColor: [
                   "rgba(130, 205, 71, 0.3)",
@@ -259,15 +265,19 @@ export async function getServerSideProps() {
   users.forEach((user) => {
     if (groups[user.group] === undefined) {
       groups[user.group] = {
-        alive: 0,
+        aliveAlive: 0,
+        aliveDead: 0,
         groupName: user.group,
-        kills: 0,
-        total: 0,
+        killsAlive: 0,
+        killsDead: 0,
+        totalAlive: 0,
       };
     }
-    groups[user.group].alive += user.alive ? 1 : 0;
-    groups[user.group].kills += user.kills;
-    groups[user.group].total += 1;
+    groups[user.group].aliveAlive += user.alive === "Alive" ? 1 : 0;
+    groups[user.group].aliveDead += user.alive === "Dead" ? 1 : 0;
+    groups[user.group].killsAlive += user.alive === "Alive" ? user.kills : 0;
+    groups[user.group].killsDead += user.alive === "Dead" ? user.killsDead : 0;
+    groups[user.group].totalAlive += user.alive !== "None" ? 1 : 0;
     groups[user.group].groupName = user.group;
   });
 
@@ -291,10 +301,12 @@ export async function getServerSideProps() {
 
   finals = [
     {
-      alive: users.filter((a) => a.alive).length,
+      aliveAlive: users.filter((a) => a.alive === "Alive").length,
+      aliveDead: 0,
       groupName: "Alla",
-      kills: 0,
-      total: users.length,
+      killsAlive: 15,
+      killsDead: 0,
+      totalAlive: users.length,
     },
     ...finals,
   ];

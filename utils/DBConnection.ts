@@ -7,6 +7,7 @@ export var dbs: {
   posts: ICollection;
   debug: ICollection;
   confirmed: ICollection;
+  test: ICollection;
 };
 
 export const connect = async () => {
@@ -21,6 +22,7 @@ export const connect = async () => {
   const posts: ICollection = db.get("posts");
   const debug: ICollection = db.get("debug");
   const confirmed: ICollection = db.get("confirmed");
+  const test: ICollection = db.get("test");
 
   dbs = {
     kills: kills,
@@ -29,6 +31,7 @@ export const connect = async () => {
     posts: posts,
     debug: debug,
     confirmed: confirmed,
+    test: test,
   };
 
   process.on("exit", () => {
