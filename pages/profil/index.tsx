@@ -14,16 +14,18 @@ import {
   InteractionRequiredAuthError,
   InteractionStatus,
 } from "@azure/msal-browser";
+import { Circle } from "../../Interfaces/Interfaces";
 
 interface KillerProfile {
   name: string;
   target: string;
   kills: number;
+  killsDead: number;
   email: string;
   phone: string;
   group: string;
   targetGroup: string;
-  alive: boolean;
+  alive: Circle;
   schoolEmail: string;
 }
 
@@ -33,11 +35,12 @@ function Profil() {
     schoolEmail: "",
     group: "",
     kills: 0,
+    killsDead: 0,
     name: "",
     phone: "",
     target: "",
     targetGroup: "",
-    alive: false,
+    alive: "None",
   });
   const [jwt, setJWT] = useState("");
   const [showTarget, setShowTarget] = useState(false);
@@ -129,6 +132,7 @@ function Profil() {
       targetGroup: target.group,
       alive: user.alive,
       schoolEmail: user.schoolEmail,
+      killsDead: user.killsDead,
     });
   };
 
@@ -208,7 +212,7 @@ function Profil() {
 
   const loggedInRender = () => {
     return (
-      <div>
+      <div /*style={{ "--main-green": "#CC3636" } as React.CSSProperties}*/>
         {profile.email === "" && (
           <div className={styles.header}>
             <h1>Laddar information</h1>
@@ -226,7 +230,7 @@ function Profil() {
                 <img src={"./Images/Logut.svg"} />
               </button>
             </div>
-            <ButtonContainer loading={loading}>
+            {/*<ButtonContainer loading={loading}>
               {!hasCase ? (
                 <>
                   <Button onClick={hasMurdered}>
@@ -239,15 +243,32 @@ function Profil() {
               ) : (
                 <Button onClick={clearActiveCase}>Rensa mord</Button>
               )}
-            </ButtonContainer>
+			  </ButtonContainer>*/}
+            <h1>Vi uppgraderar just nu</h1>
             <Card>
               <h3>Status:</h3>
-              <p>{profile.alive ? "Levande" : "Död"}</p>
-              <h3>{profile.alive ? "Du har dödat:" : "Du dödade:"}</h3>
+              <p>
+                {profile.alive === "None"
+                  ? "Död"
+                  : profile.alive === "Alive"
+                  ? "Levande"
+                  : "De Dödas Cirkel"}
+              </p>
+              <h3>
+                {profile.alive === "None"
+                  ? "Killer 2022"
+                  : "Kills i Killer 2022"}
+              </h3>
               <p>{profile.kills} st</p>
-              {profile.alive && (
+              {profile.alive === "Dead" && (
                 <>
                   {" "}
+                  <h3>Kills i de dödas cirkel</h3>
+                  <p>{profile.killsDead} st</p>
+                </>
+              )}
+              {profile.alive !== "None" && (
+                <>
                   <div className={styles.flexrow}>
                     <h3 className={styles.flexrowtext}>Ditt offer är:</h3>
                   </div>

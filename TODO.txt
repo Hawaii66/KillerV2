@@ -1,0 +1,26 @@
+CHANGE
+SERVER/MURDER got
+alive TO "DEAD"
+await users.update(
+      {
+        id: user.id,
+      },
+      {
+        $set: {
+          alive: "Dead"
+        },
+      }
+    );
+
+SERVER/MURDER has
+alive TO "DEAD"
+await users.update(
+      {
+        id: user.target,
+      },
+      {
+        $set: {
+          alive: false,
+        },
+      }
+    );

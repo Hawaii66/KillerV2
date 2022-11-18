@@ -13,7 +13,7 @@ export default async function handler(
     await dbs.test.drop();
     await dbs.test.insert(users);
     for (var i = 0; i < users.length; i++) {
-      users[i].alive = users[i].alive ? "Alive" : "Dead";
+      users[i].killsDead = 0;
     }
 
     console.log("Done");

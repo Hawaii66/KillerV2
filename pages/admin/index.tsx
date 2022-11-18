@@ -3,7 +3,7 @@ import styles from "../../Components/Admin/admin.module.css";
 
 import "bootstrap/dist/css/bootstrap.min.css";
 import ExcelFileLoader from "../../Components/Admin/ExcelFileLoader";
-import { KillerUser } from "../../Interfaces/Interfaces";
+import { Circle, KillerUser } from "../../Interfaces/Interfaces";
 import UserSorter, { SortMode } from "../../Components/Admin/UserSorter";
 import UserViewer from "../../Components/Admin/UserViewer";
 import KillerActions from "../../Components/Admin/KillerActions";
@@ -30,7 +30,7 @@ function Admin() {
     msal: null,
   });
   const [users, setUsers] = useState<KillerUser[]>([]);
-  const [showDead, setShowDead] = useState<boolean>(false);
+  const [showDead, setShowDead] = useState<Circle | "All">("All");
   const { instance, accounts, inProgress } = useMsal();
 
   const sort = (mode: SortMode) => {
@@ -144,7 +144,7 @@ function Admin() {
       };
       instance
         .acquireTokenSilent(accessTokenRequest)
-        .then(async (accessTokenResponse:any) => {
+        .then(async (accessTokenResponse: any) => {
           const result = await isAuthed(
             accessTokenResponse.account?.username || "",
             accessTokenResponse.idToken || ""
@@ -161,11 +161,11 @@ function Admin() {
             instance.logoutRedirect();
           }
         })
-        .catch((error:any) => {
+        .catch((error: any) => {
           if (error instanceof InteractionRequiredAuthError) {
             instance
               .acquireTokenRedirect(accessTokenRequest)
-              .then(async (accessTokenResponse: any)=> {
+              .then(async (accessTokenResponse: any) => {
                 const result = await isAuthed(
                   accessTokenResponse.account?.username || "",
                   accessTokenResponse.idToken || ""
@@ -182,7 +182,7 @@ function Admin() {
                   instance.logoutRedirect();
                 }
               })
-              .catch(function (error:any) {
+              .catch(function (error: any) {
                 // Acquire token interactive failure
                 console.log(error);
                 alert(

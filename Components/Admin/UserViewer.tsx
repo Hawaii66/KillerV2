@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Button, ButtonGroup, Table } from "react-bootstrap";
-import { KillerUser } from "../../Interfaces/Interfaces";
+import { Circle, KillerUser } from "../../Interfaces/Interfaces";
 import styles from "./admin.module.css";
 
 type ActionType = "Kill";
 
 interface Props {
   users: KillerUser[];
-  showdead: boolean;
+  showdead: Circle | "All";
   action: (index: number, type: ActionType) => void;
 }
 
 function UserViewer({ users, showdead, action }: Props) {
+  console.log(showdead);
+
   return (
     <Table striped hover>
       <thead>
@@ -23,13 +25,27 @@ function UserViewer({ users, showdead, action }: Props) {
           <th>Epost</th>
           <th>Telefon</th>
           <th>Lever</th>
+          <th>Dödas</th>
           <th className="smallheader">Actions</th>
         </tr>
       </thead>
       <tbody>
         {users
           .filter((u) => {
-            return showdead ? true : u.alive;
+            if (showdead === "All") {
+              return true;
+            }
+
+            if (showdead === "Alive" && u.alive === "Alive") {
+              return true;
+            }
+            if (showdead === "Dead" && u.alive === "Dead") {
+              return true;
+            }
+            if (showdead === "None" && u.alive === "None") {
+              return true;
+            }
+            return false;
           })
           .map((user) => {
             const target = users.find((u) => u.id === user.target);
@@ -46,11 +62,19 @@ function UserViewer({ users, showdead, action }: Props) {
                 <td>{user.phone}</td>
                 <td
                   style={{
-                    backgroundColor: user.alive ? "green" : "red",
+                    backgroundColor: user.alive === "Alive" ? "green" : "red",
                     fontSize: 0,
                   }}
                 >
-                  {user.alive ? 1 : 0}
+                  {user.alive === "Alive"}
+                </td>
+                <td
+                  style={{
+                    backgroundColor: user.alive === "Dead" ? "green" : "red",
+                    fontSize: 0,
+                  }}
+                >
+                  {user.alive === "Dead"}
                 </td>
                 <td>
                   <ButtonGroup>
