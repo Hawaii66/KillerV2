@@ -241,6 +241,15 @@ function Admin() {
     writeFile(workbook, "Test.xlsb");
   };
 
+  const deadCircle = async () => {
+    const url = `/api/server/admin/dead?email=${user.email}&jwt=${user.jwt}`;
+    const result = await fetch(url, {
+      method: "POST",
+    });
+    setUsers(await result.json());
+    alert("De Dödas cirkel är generaread");
+  };
+
   const isLoggedIn = () => {
     return (
       <div className={styles.wrapper}>
@@ -270,7 +279,12 @@ function Admin() {
             }
           }}
         />
-        <KillerActions download={download} randomise={randomise} turn={turn} />
+        <KillerActions
+          deadCircle={deadCircle}
+          download={download}
+          randomise={randomise}
+          turn={turn}
+        />
         <SmsSend users={users} />
         <Admins email={user.email} jwt={user.jwt} />
         <HomeInfoEditor email={user.email} jwt={user.jwt} />

@@ -277,7 +277,7 @@ export async function getServerSideProps() {
     groups[user.group].aliveDead += user.alive === "Dead" ? 1 : 0;
     groups[user.group].killsAlive += user.alive === "Alive" ? user.kills : 0;
     groups[user.group].killsDead += user.alive === "Dead" ? user.killsDead : 0;
-    groups[user.group].totalAlive += user.alive !== "None" ? 1 : 0;
+    groups[user.group].totalAlive += 1;
     groups[user.group].groupName = user.group;
   });
 
