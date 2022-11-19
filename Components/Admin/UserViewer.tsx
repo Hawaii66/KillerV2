@@ -66,7 +66,7 @@ function UserViewer({ users, showdead, action }: Props) {
                     fontSize: 0,
                   }}
                 >
-                  {user.alive === "Alive"}
+                  {user.alive === "Alive" ? 1 : 0}
                 </td>
                 <td
                   style={{
@@ -74,7 +74,7 @@ function UserViewer({ users, showdead, action }: Props) {
                     fontSize: 0,
                   }}
                 >
-                  {user.alive === "Dead"}
+                  {user.alive === "Dead" ? 1 : 0}
                 </td>
                 <td>
                   <ButtonGroup>
