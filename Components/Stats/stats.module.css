@@ -1,0 +1,15 @@
+.wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    margin-bottom: 1rem;
+}
+
+.wrapper select {
+    width: 10vw;
+    height: 2rem;
+    font-size: 1.5rem;
+    color: var(--text-color);
+}

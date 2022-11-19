@@ -31,4 +31,14 @@ export interface ConfirmedKill {
   murder: string;
   target: string;
   time: number;
+  circle: Circle;
+}
+
+export interface GroupStats {
+  groupName: string;
+  killsAlive: number;
+  killsDead: number;
+  aliveAlive: number;
+  aliveDead: number;
+  totalAlive: number;
 }

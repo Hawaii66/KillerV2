@@ -259,8 +259,6 @@ function Profil() {
                 </ButtonContainer>,
                 profile.alive
               )}
-            <h1>Vi uppgraderar just nu</h1>
-            <p>Vissa funktioner kanske inte kommer fungera</p>
             <Card>
               <h3>Status:</h3>
               <p>

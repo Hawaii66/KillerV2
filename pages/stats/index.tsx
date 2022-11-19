@@ -11,21 +11,17 @@ import {
   PointElement,
   LineElement,
 } from "chart.js";
-import { Bar, Line, Pie } from "react-chartjs-2";
 import useWindowSize from "../../Hooks/WindowSize";
 import { connect, dbs } from "../../utils/DBConnection";
-import { ConfirmedKill, KillerUser } from "../../Interfaces/Interfaces";
-import styles from "./stats.module.css";
-import { isAlive, isDead } from "../../utils/Utilts";
+import {
+  ConfirmedKill,
+  GroupStats,
+  KillerUser,
+} from "../../Interfaces/Interfaces";
+import Killer from "../../Components/Stats/Killer";
+import Dead from "../../Components/Stats/Dead";
+import Button from "../../Components/Utils/Button/Button";
 
-interface GroupStats {
-  groupName: string;
-  killsAlive: number;
-  killsDead: number;
-  aliveAlive: number;
-  aliveDead: number;
-  totalAlive: number;
-}
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -38,7 +34,7 @@ ChartJS.register(
   LineElement
 );
 
-const optionsAlive = {
+export const optionsAlive = {
   responsive: true,
   plugins: {
     title: {
@@ -64,7 +60,7 @@ const optionsAlive = {
   },
 };
 
-const optionsKills = {
+export const optionsKills = {
   responsive: true,
   plugins: {
     title: {
@@ -94,10 +90,12 @@ function Stats({
   groups,
   kills,
   days,
+  killsDead,
 }: {
   groups: GroupStats[];
   kills: KillerUser[];
-  days: { kills: number; day: number; month: number }[];
+  killsDead: KillerUser[];
+  days: { killsAlive: number; killsDead: number; day: number; month: number }[];
 }) {
   const size = useWindowSize();
   const [selectedGroup, setSelected] = useState<GroupStats>(groups[0]);
@@ -105,152 +103,30 @@ function Stats({
 
   return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
-      <Line
-        options={{
-          responsive: true,
-          plugins: {
-            legend: {
-              position: "top",
-            },
-            title: {
-              display: true,
-              text: "Kills per dag",
-            },
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: {
-                callback: (i: any) => {
-                  if (i % 1 === 0) {
-                    return i;
-                  }
-                  return undefined;
-                },
-              },
-            },
-          },
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
-        data={{
-          labels: days.map((i) => {
-            return `${i.day}/${i.month}`;
-          }),
-
-          datasets: [
-            {
-              label: "Kills",
-              borderColor: "rgba(225, 77, 42, 0.3)",
-              backgroundColor: "rgba(225, 77, 42, 0.6)",
-              data: days.map((day) => day.kills),
-            },
-          ],
-        }}
-      />
-      {kills.length > 0 && (
-        <Bar
-          height={size.width < 800 ? 800 : 300}
-          options={optionsKills}
-          data={{
-            labels: kills.map((i) => i.name),
-            datasets: [
-              {
-                label: "Kills",
-                data: kills.map((i) => i.kills),
-                backgroundColor: "rgba(98, 79, 130, 0.3)",
-                stack: "Stack 0",
-              },
-            ],
-          }}
-        />
-      )}
-      <Bar
-        height={size.width < 800 ? 800 : 300}
-        options={optionsAlive}
-        data={{
-          labels: groups.slice(1, groups.length).map((i) => i.groupName),
-          datasets: [
-            {
-              label: "Levande",
-              data: groups
-                .slice(1, groups.length)
-                .map((i) => (isAliveGroup ? i.aliveAlive : i.aliveDead)),
-              backgroundColor: "rgba(130, 205, 71, 0.3)",
-              stack: "Stack 0",
-            },
-            {
-              label: "Döda",
-              data: groups
-                .slice(1, groups.length)
-                .map((i) => i.totalAlive - i.aliveAlive),
-              backgroundColor: "rgba(225, 77, 42, 0.3)",
-              stack: "Stack 0",
-            },
-          ],
-        }}
-      />
-      <Bar
-        height={size.width < 800 ? 800 : 300}
-        options={optionsKills}
-        data={{
-          labels: groups.slice(1, groups.length).map((i) => i.groupName),
-          datasets: [
-            {
-              label: "Kills",
-              data: groups.slice(1, groups.length).map((i) => i.killsAlive),
-              backgroundColor: "rgba(98, 79, 130, 0.3)",
-              stack: "Stack 0",
-            },
-          ],
-        }}
-      />
-      <div className={styles.wrapper}>
-        <select
-          onChange={(e) => {
-            const g = groups.find((i) => i.groupName === e.target.value);
-            if (g === undefined) {
-              return;
-            }
-
-            setSelected(g);
-          }}
-        >
-          {groups.map((group) => {
-            return (
-              <option key={group.groupName} value={group.groupName}>
-                {group.groupName}
-              </option>
-            );
-          })}
-        </select>
+      >
+        <Button onClick={() => setGroup((g) => !g)}>Byt Statistik</Button>
       </div>
-      {selectedGroup.groupName !== "" && (
-        <Pie
-          options={{
-            color: "rgba(0,0,0,1)",
-          }}
-          data={{
-            labels: [
-              `Levande: ${selectedGroup.aliveAlive}`,
-              `Döda: ${selectedGroup.totalAlive - selectedGroup.aliveAlive}`,
-            ],
-            datasets: [
-              {
-                label: "Antal levande",
-                data: [
-                  selectedGroup.aliveAlive,
-                  selectedGroup.totalAlive - selectedGroup.aliveAlive,
-                ],
-                backgroundColor: [
-                  "rgba(130, 205, 71, 0.3)",
-                  "rgba(225, 77, 42, 0.3)",
-                ],
-                borderColor: [
-                  "rgba(130, 205, 71, 0.5)",
-                  "rgba(225, 77, 42, 0.5)",
-                ],
-              },
-            ],
-          }}
+      {isAliveGroup ? (
+        <Killer
+          days={days}
+          groups={groups}
+          kills={kills}
+          selectedGroup={selectedGroup}
+          setGroup={(s) => setSelected(s)}
+        />
+      ) : (
+        <Dead
+          days={days}
+          groups={groups}
+          kills={killsDead}
+          selectedGroup={groups[0]}
+          setGroup={(s) => setSelected(s)}
         />
       )}
     </div>
@@ -282,6 +158,7 @@ export async function getServerSideProps() {
   });
 
   const mostKills = [...users].sort((a, b) => b.kills - a.kills);
+  const mostKillsDead = [...users].sort((a, b) => b.killsDead - a.killsDead);
 
   var finals: GroupStats[] = [];
   for (const [_, value] of Object.entries(groups)) {
@@ -312,23 +189,33 @@ export async function getServerSideProps() {
   ];
 
   const killsEveryDay: {
-    [key: number]: { kills: number; day: number; month: number };
+    [key: number]: {
+      killsAlive: number;
+      killsDead: number;
+      day: number;
+      month: number;
+    };
   } = {};
 
   const allKills = await dbs.confirmed.find();
   allKills.sort((a, b) => a.time - b.time);
   allKills.forEach((confirmed: ConfirmedKill) => {
     const time = new Date(confirmed.time);
+    if (confirmed.circle === undefined) {
+      confirmed.circle = "Alive";
+    }
 
     const key = time.getMonth() * 1000 + time.getDate();
     if (killsEveryDay[key] === undefined) {
       killsEveryDay[key] = {
         day: time.getDate(),
-        kills: 1,
+        killsAlive: confirmed.circle === "Alive" ? 1 : 0,
+        killsDead: confirmed.circle === "Dead" ? 1 : 0,
         month: time.getMonth(),
       };
     } else {
-      killsEveryDay[key].kills += 1;
+      killsEveryDay[key].killsAlive += confirmed.circle === "Alive" ? 1 : 0;
+      killsEveryDay[key].killsDead += confirmed.circle === "Dead" ? 1 : 0;
     }
   });
   var finalDays = [];
@@ -345,6 +232,14 @@ export async function getServerSideProps() {
           return {
             name: i.name,
             kills: i.kills,
+          };
+        }),
+      killsDead: [...mostKillsDead.splice(0, 5)]
+        .filter((i) => i.killsDead > 0)
+        .map((i) => {
+          return {
+            name: i.name,
+            kills: i.killsDead,
           };
         }),
       days: finalDays,
