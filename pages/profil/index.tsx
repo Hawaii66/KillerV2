@@ -210,6 +210,17 @@ function Profil() {
     return <SignIn />;
   };
 
+  const themeWrapper = (children: React.ReactNode, alive: string) => {
+    if (alive === "Dead") {
+      return (
+        <div style={{ "--main-green": "#E14D2A" } as React.CSSProperties}>
+          {children}
+        </div>
+      );
+    }
+    return <div>{children}</div>;
+  };
+
   const loggedInRender = () => {
     return (
       <div /*style={{ "--main-green": "#CC3636" } as React.CSSProperties}*/>
@@ -230,21 +241,26 @@ function Profil() {
                 <img src={"./Images/Logut.svg"} />
               </button>
             </div>
-            {/*<ButtonContainer loading={loading}>
-              {!hasCase ? (
-                <>
-                  <Button onClick={hasMurdered}>
-                    Jag <b>har</b> mördat
-                  </Button>
-                  <Button onClick={gotMurdered}>
-                    Jag <b>blev</b> mördad
-                  </Button>
-                </>
-              ) : (
-                <Button onClick={clearActiveCase}>Rensa mord</Button>
+            {profile.alive !== "None" &&
+              themeWrapper(
+                <ButtonContainer loading={loading}>
+                  {!hasCase ? (
+                    <>
+                      <Button onClick={hasMurdered}>
+                        Jag <b>har</b> mördat
+                      </Button>
+                      <Button onClick={gotMurdered}>
+                        Jag <b>blev</b> mördad
+                      </Button>
+                    </>
+                  ) : (
+                    <Button onClick={clearActiveCase}>Rensa mord</Button>
+                  )}
+                </ButtonContainer>,
+                profile.alive
               )}
-			  </ButtonContainer>*/}
             <h1>Vi uppgraderar just nu</h1>
+            <p>Vissa funktioner kanske inte kommer fungera</p>
             <Card>
               <h3>Status:</h3>
               <p>

@@ -114,7 +114,7 @@ const hasMurdered = async (email: string) => {
       },
       {
         $set: {
-          alive: false,
+          alive: "None",
         },
       }
     );
@@ -181,7 +181,7 @@ const gotMurdered = async (email: string) => {
       },
       {
         $set: {
-          alive: "Dead",
+          alive: "None",
         },
       }
     );
