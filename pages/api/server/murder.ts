@@ -1,6 +1,10 @@
 import { Data } from "aws-sdk/clients/firehose";
 import { NextApiRequest, NextApiResponse } from "next";
-import { ConfirmedKill, KillerUser } from "../../../Interfaces/Interfaces";
+import {
+  Circle,
+  ConfirmedKill,
+  KillerUser,
+} from "../../../Interfaces/Interfaces";
 import monk, { ICollection } from "monk";
 import { connect, dbs } from "../../../utils/DBConnection";
 import { ValidateToken } from "../../../utils/verifyToken";
@@ -43,7 +47,11 @@ export default async function handler(
   }
 }
 
-const addMurderStat = async (murderer: string, target: string) => {
+const addMurderStat = async (
+  murderer: string,
+  target: string,
+  circle: Circle
+) => {
   await connect();
 
   const confirmed = dbs.confirmed;
@@ -52,6 +60,7 @@ const addMurderStat = async (murderer: string, target: string) => {
     murder: murderer,
     target: target,
     time: Date.now(),
+    circle: circle,
   };
 
   confirmed.insert(t);
@@ -119,7 +128,7 @@ const hasMurdered = async (email: string) => {
       }
     );
 
-    await addMurderStat(user.email, userTarget.email);
+    await addMurderStat(user.email, userTarget.email, user.alive);
 
     return 1;
   }
@@ -186,7 +195,7 @@ const gotMurdered = async (email: string) => {
       }
     );
 
-    await addMurderStat(murder.email, user.email);
+    await addMurderStat(murder.email, user.email, user.alive);
 
     return 1;
   }
