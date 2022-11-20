@@ -57,7 +57,6 @@ export default async function handler(
       await dbs.users.findOneAndUpdate(
         {
           id: users[i].id,
-          alive: "Dead",
         },
         {
           $set: {

@@ -257,6 +257,7 @@ function Admin() {
           <img src={"./Images/Logut.svg"} />
         </button>
         <ExcelFileLoader
+          userTotal={users.length}
           setUsers={(u) => {
             setUsers(u);
             save(u);
