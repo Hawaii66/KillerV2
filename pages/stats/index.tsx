@@ -234,9 +234,8 @@ export async function getServerSideProps() {
             kills: i.kills,
           };
         }),
-      killsDead: [...mostKillsDead.splice(0, 5)]
+      killsDead: [...mostKillsDead.filter((i)=>i.alive==="Dead").splice(0, 5)]
         .filter((i) => i.killsDead > 0)
-      .filter((i)=>i.alive==="Dead")
         .map((i) => {
           return {
             name: i.name,
