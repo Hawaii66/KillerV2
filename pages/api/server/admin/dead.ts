@@ -25,9 +25,9 @@ export default async function handler(
   if (req.method === "POST") {
     await connect();
 
-    var deadUsers: any = await dbs.users.find({
+    var deadUsers: any = []; /*await dbs.users.find({
       alive: "None",
-    });
+    });*/
     var t: any = await dbs.users.find({
       alive: "Dead",
     });
