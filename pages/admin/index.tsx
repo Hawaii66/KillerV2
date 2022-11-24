@@ -242,6 +242,7 @@ function Admin() {
   };
 
   const deadCircle = async () => {
+    console.log("STart new circle");
     const url = `/api/server/admin/dead?email=${user.email}&jwt=${user.jwt}`;
     const result = await fetch(url, {
       method: "POST",
