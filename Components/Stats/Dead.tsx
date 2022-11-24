@@ -79,7 +79,6 @@ function Dead({ groups, kills, days, setGroup, selectedGroup }: Props) {
           ],
         }}
       />
-      <h1>Vi har problem med antalet kills. Fixas runt 18.00. Alla mord som genomförs idag eller tidigare kommer räknas</h1>
       {kills.length > 0 && (
         <Bar
           height={size.width < 800 ? 800 : 300}
