@@ -241,7 +241,7 @@ function Profil() {
                 <img src={"./Images/Logut.svg"} />
               </button>
             </div>
-            {profile.alive === "Alive" &&
+            {profile.alive === "" &&
               themeWrapper(
                 <ButtonContainer loading={loading}>
                   {!hasCase ? (
