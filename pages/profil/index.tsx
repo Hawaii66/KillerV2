@@ -241,7 +241,7 @@ function Profil() {
                 <img src={"./Images/Logut.svg"} />
               </button>
             </div>
-            {profile.alive === "" &&
+            {/*profile.alive === "Alive" &&
               themeWrapper(
                 <ButtonContainer loading={loading}>
                   {!hasCase ? (
@@ -258,7 +258,7 @@ function Profil() {
                   )}
                 </ButtonContainer>,
                 profile.alive
-              )}
+              )*/}
             <Card>
               <h3>Status:</h3>
               <p>
