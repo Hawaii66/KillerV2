@@ -137,8 +137,12 @@ function Admin() {
     var allusers = [...users];
     for (var i = 0; i < allusers.length; i++) {
       if (allusers[i].alive === "Alive") {
-        allusers[i].target =
-          aliveUsers.find((user) => user.id === allusers[i].id)?.target || -1;
+        const user = aliveUsers.find((user) => user.id === allusers[i].id);
+        if (user === undefined) {
+          console.log(user, i, allusers[i]);
+          continue;
+        }
+        allusers[i].target = user.target;
       }
     }
     setUsers(allusers);
