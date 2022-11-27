@@ -109,8 +109,9 @@ export const data: Data = {
       data: "<ul><li>Offret och mördaren måste alltid kunna bevisa med schema att denne har respektive inte har lektion.</li><li>Lektionen börjar enligt tid i schemat och avslutas när läraren säger att lektionen är slut. Man kan dö och döda om man har eget arbete UTAN återsamling. </li><li>Prov är avslutade när man lämnar in provet och lämnar salen. </li><li>Stugor är killerfria i den salen. </li><li>Handledning måste styrkas av lärare. </li><li>Resurstiden är killerfri i skolbyggnaden.</li></ul>",
     },
     {
-      title: "Man får inte hinta om vittnesmål.",
-      data: "<ul><li>Man får inte be om eller på något sätt hinta om att någon ska vittna från att ett mordförsök påbörjats, det vill säga då mördarens hand ligger på offrets axel.</li><li>Om offret hintar ogiltiggörs alla vittnesmål för det mordet.</li></ul>",
+      title:
+        "Som offer får man inte hinta om vittnesmål eller avslöja ett mord.",
+      data: "<ul><li>Offer får inte be om eller på något sätt hinta om att någon ska vittna från att ett mordförsök påbörjats, det vill säga då mördarens hand ligger på offrets axel.</li><li>Om offret hintar om eller avslöjar mordet ogiltiggörs alla vittnesmål för det mordet</li></ul>",
     },
     {
       title:
