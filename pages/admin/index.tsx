@@ -151,13 +151,16 @@ function Admin() {
   };
 
   const save = async (saveusers: KillerUser[]) => {
-    const res = await fetch("/api/server/circle", {
-      method: "POST",
-      body: JSON.stringify(saveusers),
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    const res = await fetch(
+      `/api/server/circle?email=${user.email}&jwt=${user.jwt}`,
+      {
+        method: "POST",
+        body: JSON.stringify(saveusers),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
     console.log(res);
   };
