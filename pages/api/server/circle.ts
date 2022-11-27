@@ -10,11 +10,31 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<Data>
 ) {
+  const param = req.query;
+  const email = param.email;
+  const jwtToken = param.jwt;
+
+  if (email === undefined || jwtToken === undefined) {
+    res.status(400).send("Wrong email or jwt");
+    return;
+  }
+
+  const result = await ValidateToken(
+    jwtToken?.toString() || "",
+    email?.toString() || ""
+  );
+  if (result === false) {
+    res.status(400).send("Wrong auth");
+    return;
+  }
+
   if (req.method === "POST") {
     const users: KillerUser[] = req.body;
 
     await connect();
     const circleDB = dbs.users;
+
+    console.log(circleDB, users);
 
     await circleDB.drop();
     await circleDB.insert(users);
