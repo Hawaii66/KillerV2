@@ -6,10 +6,17 @@ interface Props {
   randomise: () => void;
   turn: () => void;
   download: () => void;
+  newAlive: () => void;
   deadCircle: () => void;
 }
 
-function KillerActions({ deadCircle, randomise, turn, download }: Props) {
+function KillerActions({
+  deadCircle,
+  newAlive,
+  randomise,
+  turn,
+  download,
+}: Props) {
   const newCircle = () => {
     const answer = prompt(
       "Är du säker på att du vill starta om cirkeln och skicka ut nya sms?\nIsåfall skriv\n\nstarta om"
@@ -32,7 +39,10 @@ function KillerActions({ deadCircle, randomise, turn, download }: Props) {
     <div className={styles.spacer}>
       <ButtonGroup aria-label="Basic example">
         <Button variant="danger" onClick={newCircle}>
-          Slumpa Ordning
+          Ingen aning
+        </Button>
+        <Button variant="danger" onClick={newAlive}>
+          Slumpa Levande ordning
         </Button>
         <Button variant="danger" onClick={deadCircle}>
           Skapa Dödas Cirkel

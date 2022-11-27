@@ -114,6 +114,38 @@ function Admin() {
     save(prevUsers);
   };
 
+  const newFullCircle = () => {
+    var aliveUsers = [...users.filter((i) => i.alive === "Alive")];
+    aliveUsers.sort((a, b) => a.id - b.id);
+
+    aliveUsers = shuffle(aliveUsers);
+
+    aliveUsers.map((user, index) => {
+      var found = false;
+      for (var i = index + 1; i < aliveUsers.length; i++) {
+        user.target = aliveUsers[i].id;
+        found = true;
+        break;
+      }
+      if (!found) {
+        for (var i = 0; i < aliveUsers.length; i++) {
+          user.target = aliveUsers[i].id;
+          break;
+        }
+      }
+    });
+    var allusers = [...users];
+    for (var i = 0; i < allusers.length; i++) {
+      if (allusers[i].alive === "Alive") {
+        allusers[i].target =
+          aliveUsers.find((user) => user.id === allusers[i].id)?.target || -1;
+      }
+    }
+    setUsers(allusers);
+
+    save(allusers);
+  };
+
   const save = async (saveusers: KillerUser[]) => {
     const res = await fetch("/api/server/circle", {
       method: "POST",
@@ -286,6 +318,7 @@ function Admin() {
           download={download}
           randomise={randomise}
           turn={turn}
+          newAlive={newFullCircle}
         />
         <SmsSend users={users} />
         <Admins email={user.email} jwt={user.jwt} />
