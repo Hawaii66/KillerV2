@@ -103,7 +103,7 @@ function Stats({
 
   return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
-      <div
+      {/*<div
         style={{
           display: "flex",
           justifyContent: "center",
@@ -111,7 +111,7 @@ function Stats({
         }}
       >
         <Button onClick={() => setGroup((g) => !g)}>Byt Statistik</Button>
-      </div>
+	</div>*/}
       {isAliveGroup ? (
         <Killer
           days={days}
@@ -234,7 +234,9 @@ export async function getServerSideProps() {
             kills: i.kills,
           };
         }),
-      killsDead: [...mostKillsDead.filter((i)=>i.alive==="Dead").splice(0, 5)]
+      killsDead: [
+        ...mostKillsDead.filter((i) => i.alive === "Dead").splice(0, 5),
+      ]
         .filter((i) => i.killsDead > 0)
         .map((i) => {
           return {
