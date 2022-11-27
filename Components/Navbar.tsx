@@ -17,7 +17,7 @@ function Navbar() {
             <h1>{`Killer ${new Date(Date.now()).getFullYear()}`}</h1>
           </div>
           <button onClick={() => setShowBottom((o) => !o)}>
-            <img className="icon" src="menu.svg" />
+            <p>Meny</p>
           </button>
         </div>
         {showBottom && (
@@ -32,7 +32,7 @@ function Navbar() {
               <Link href={"/rules"}>Regler</Link>
             </p>
             <p>
-              <Link href={"/howto"}>Så här fungerar Killer</Link>
+              <Link href={"/howto"}>Begrepp</Link>
             </p>
             <p>
               <Link href={"/profil"}>Profil</Link>
@@ -67,7 +67,7 @@ function Navbar() {
           <Link href={"/rules"}>Regler</Link>
         </p>
         <p>
-          <Link href={"/howto"}>Så här fungerar Killer</Link>
+          <Link href={"/howto"}>Begrepp</Link>
         </p>
         <p>
           <Link href={"/profil"}>Profil</Link>

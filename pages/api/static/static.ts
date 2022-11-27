@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import { RuleInfo } from "../../../Interfaces/Interfaces";
 
-type Data = {
+export type Data = {
   rules: RuleInfo[];
   howto: RuleInfo[];
 };
@@ -10,129 +10,188 @@ type Data = {
 export const data: Data = {
   howto: [
     {
-      title: "Ditt Offer",
-      data: "<p>Du blir tilldelad ditt första offer via fliken profil ovan där du loggar in med din <b>skolmail</b>. Vid ett lyckat mord får du ditt nästa offer under fliken profil </p><p>Exempel: Om A dödar B (och B skulle ha dödat C) så blir A's nya offer C.</p>",
+      title: "Killer",
+      data: "Spelet går ut på att döda sitt specifika offer och undvika att bli mördad. När du dödat ditt offer får du nästa person i cirkeln och kan fortsätta din räd mot finalen.",
     },
     {
-      title: "Hur man utför ett mord",
-      data: "<p>Du dödar ditt offer genom att gå fram till offret och säga “Du är död” samtidigt som du vidrör offret på axeln. Vittnesmål inom 5 sekunder eller användande av Dagens Skydd ogiltiggör mordet. Offret måste höra dödförklaringen (förutsatt att offret inte använder medel för att nedsätta hörseln, exempelvis med hörlurar eller hörselskydd).</p>",
+      title: "Offer",
+      data: "Alla är ett offer till sin mördare. Som offer ska du undvika att bli mördad.",
     },
     {
-      title: "Hur man vittnar",
-      data: '<p>När man har sett ett mord äga rum har man ett val att vittna som åskådare. Detta gör man genom att säga "Jag vittnar". Vittnesmålet ogiltiggör mordet och offret är räddat. Vittnesmålet måste ske inom 5 sekunder efter att mordet har skett för att vara giltigt. Offret får ALDRIG be om vittnesmål efter att mordet begåtts. Ber man på något sätt om vittnesmål ogiltiggör man alla eventuella vittnesmål. Vittnesmålet måste höras av mördaren (förutsatt att mördaren inte använder medel för att nedsätta hörseln, exempelvis med hörlurar eller hörselskydd).</p>',
+      title: "Mördare",
+      data: "Som mördare är ditt mål är att mörda ditt offer. Du mördar genom att placera din hand på offrets axel och säga ”Du är död”.",
     },
     {
-      title: "När du har begått ett mord",
-      data: '<p>När du begått ett lyckat mord, utan att någon vittnar, ska du gå till fliken profil ovan och logga in med din skolmail. Klicka sedan på "jag har dödat" och godkän frågan som kommer upp. Vänta på att ditt offer gör samma sak och ladda sedan om sidan, mer information under regel 6</p>',
+      title: "Mord",
+      data: "Du dödar ditt offer genom att lägga handen på offrets axel och säga du är död så att offret hör det. Ett vittnesmål förhindrar mordet.",
     },
     {
-      title: "När du har blivit dödad",
-      data: '<p>När du blivit dödad ska du gå till fliken profil ovan och logga in med din skolmail. Klicka sedan på "jag blev dödad" och godkänn frågan som kommer upp. Vänta på att din mörare och ladda sedan om hemsidan för att se din slutgilitliga statistik. Mer informaiton under regel 6.</p>',
+      title: "VITTNA",
+      data: "Om någon vittnar inom 5 sekunder är mordet misslyckat. Du vittnar genom att säga ”jag vittnar”. Vittnesmål räknas inte över exempelvis telefon och Teams.",
     },
     {
-      title: "Dagens Vapen",
-      data: "<p>Dagens Vapen förekommer vissa dagar under spelets gång. Med vapnet kan man döda sitt offer oavsett vittnesmål eller ej. Vapnet kan förekomma i en rad olika former. För att minimera risken att folk stannar hemma kan vapen komma att avslöjas samma dag som det gäller eller i form av så kallat flashvapen. </p>",
+      title: "TVISTEMÅL",
+      data: "Om mördare och offer inte är överens om ett mords giltighet är det ett tvistemål. Båda parterna ska anmäla ett tvistemål på hemsidan. Båda kommer berätta vad som har hänt och får kalla ett vittne var. Killerutskottet kommer bedöma situationen och avgöra om mordet var giltigt eller inte. Under ett tvistemål får varken offer eller mördare fortsätta mörda. ",
     },
     {
-      title: "Dagens Skydd",
-      data: "<p>Dagens Skydd har samma koncept som vapnet men de två fyller olika funktioner. I stället för att kunna döda ditt offer oavsett vittnesmål så kan man med skyddet överleva mordförsök utan vittnesmål. Finns det både skydd och vapen samma dag är det skyddet som står över vapnet.</p>",
+      title: "PROFILEN",
+      data: "Ditt konto på hemsidan. Du loggar in med din skolmail och kan se ditt offer med mera. Det är här du anmäler både din död, dina mord och eventuella tvistemål.",
     },
     {
-      title: "Dagens Vittnesbevis",
-      data: "<p>Dagens Vittnesbevis förekommer vissa dagar och innebär att man behöver ha ett specifikt föremål för att kunna bevittna ett mord. Medans ett vittnesbevis är aktivt så innebär det att vanliga vittnesmål inte fungerar som ett sätt att stoppa ett mord.</p>",
+      title: "SPECIELLA FÖREMÅL",
+      data: "Dessa föremål ska hållas i handen och vara synliga vid användning. Om det är klädesplagg ska det vara det yttersta plagget. Andra krav för användning kan förekomma och annonseras i så fall tillsammans med föremålet på hemsidan och på Instagram @enskildakaren. ",
     },
     {
-      title: "Gemensamt för skydd, vapen & vittnesbevis",
-      data: "<p>Gemensamt för både vapen och skydd är att de måste vara synliga vid användning och om det förekommer speciella instruktioner för hur de ska bäras är det viktigt att instruktionerna följs för att vapnet/skyddet ska vara giltigt.</p><p>Vapen, Skydd och Vittnesbevis annonseras på Enskilda Kårens Instagram. För att minimera risken att folk stannar hemma kan skydd komma att avslöjas samma dag som det gäller eller i form av så kallat flashvapen.</p><p>Löpande information under spelets gång hittar man här på hemsidan, däribland uppdateringar av regler och diverse statistik.</p>",
+      title: "VAPEN",
+      data: "Med vapnet kan man döda sitt offer oavsett vittnesmål.",
+    },
+    {
+      title: "VITTNESBEVIS",
+      data: "Om vittnesbevis förekommer kan du endast vittna om du använder det specifika föremålet. Vanliga vittnesmål fungerar alltså inte.",
+    },
+    {
+      title: "DRÅP",
+      data: "Om dråp förekommer kan du endast mörda om du använder det specifika föremålet. Vanliga mord fungerar alltså inte.",
+    },
+    {
+      title: "SKYDD",
+      data: "Med skyddet kan offret överleva alla mordförsök, oavsett vapen. Skyddet kan inte användas av flera personer samtidigt och måste användas på ett korrekt sätt när mordförsöket sker för att det ska räknas. Du får lämna över skyddet till en person INNAN mordet sker. Skydd står över vapen och dråp. ",
+    },
+    {
+      title: "BOXEN",
+      data: "En plats på skolan som när X antal personer står i den gör alla i boxen immuna för resten av dagen. Du kan dö på vägen till boxen även om du har lektion och i boxen innan boxens personer blir immuna. Bara personer som är med i Killer får stå i boxen.",
+    },
+    {
+      title: "Immuna",
+      data: "Personer som är immuna kan inte dö under den dagen. Immunitet får inte överlämnas till en annan person.",
+    },
+    {
+      title: "FLASH",
+      data: "Detta är ett vapen/vittnesbevis/skydd/dråp som endast är giltigt under en kort tidsperiod.",
+    },
+    {
+      title: "KILLERFRITT",
+      data: "Om ett område är Killerfritt kan inga mord begås i det området. Killerfria områden är vanligtvis begränsade i exempelvis tid, fysisk plats och till vissa personer. Personer som innefattas av ett killerfritt område kan varken mörda eller mördas.",
+    },
+    {
+      title: "KILLERSTOPP",
+      data: "Vid särskilda händelser kommer Killerstopp annonseras på hemsidan och på Instagram @enskildakaren. Under Killerstopp kan man varken dö eller bli dödad.",
+    },
+    {
+      title: "SPÄRR",
+      data: "I Killer kan spärrar där deltagare med färre än X antal kills är ute ur Killer.",
+    },
+    {
+      title: "CIRKELN",
+      data: "Den ordning som alla deltagare blivit placerade i. Ordningen avgör vem du ska mörda.",
+    },
+    {
+      title: "CIRKELÄNDRING",
+      data: "Cirkeln kan under spelets gång kastas om. Detta annonseras på hemsidan och på Instagram @enskildakaren. Även om det sker slumpmässigt kan du få samma offer igen.",
+    },
+    {
+      title: "DE DÖDAS CIRKEL",
+      data: "Här får alla döda en andra chans. Vinnarna av De dödas cirkel får en andra chans i den vanliga cirkeln.",
+    },
+    {
+      title: "MÖRDARVECKAN",
+      data: "Att komma skall.",
+    },
+    {
+      title: "KILLERFRIA OMRÅDEN",
+      data: "<p>I dessa områden kan man varken mörda eller mördas.</p><ul><li>Matsalen, från plexiglaset</li><li>Klassrum under lektionstid eller handledning</li><li>Arbetsrum</li></ul>",
     },
   ],
   rules: [
     {
       title:
-        "Blockad av väg till lektionssal är förbjuden om det hindrar eleven från att komma i tid till sin lektion. ",
-      data: "<p>En blockad är när en mördare med vapen hindrar offret från att komma till sin lektion genom att stå framför lektionsalsdörren.</p><p>Offret måste alltid kunna bevisa med schema att denne har lektion.</p>",
+        "Mördare och offer kan ej ha lektion eller prov när ett mord begås.",
+      data: "<ul><li>Offret och mördaren måste alltid kunna bevisa med schema att denne har respektive inte har lektion.</li><li>Lektionen börjar enligt tid i schemat och avslutas när läraren säger att lektionen är slut. Man kan dö och döda om man har eget arbete UTAN återsamling. </li><li>Prov är avslutade när man lämnar in provet och lämnar salen. </li><li>Stugor är killerfria i den salen. </li><li>Handledning måste styrkas av lärare. </li><li>Resurstiden är killerfri i skolbyggnaden.</li></ul>",
+    },
+    {
+      title: "Man får inte hinta om vittnesmål.",
+      data: "<ul><li>Man får inte be om eller på något sätt hinta om att någon ska vittna från att ett mordförsök påbörjats, det vill säga då mördarens hand ligger på offrets axel.</li><li>Om offret hintar ogiltiggörs alla vittnesmål för det mordet.</li></ul>",
     },
     {
       title:
-        "Inga mord får begås under lektionstid, oavsett var offret befinner sig. ",
-      data: "<p>Offret måste alltid kunna bevisa med schema att denne har lektion.</p><i>Undantag: Schemabrytande lektionstid måste kunna styrkas av lärare.</i><i>Avslutar läraren lektionen tidigare än vad schemat säger så är det inte längre lektion och man kan då bli dödad. (På resurstiden är skolbyggnaden alltid killerfri från 14.55 till 16.15)</i>",
-    },
-    {
-      title: "Inga mord får begås i matsalen eller lärares arbetsrum",
-      data: "<p>Matsalen, arbetsrum, grupprum med lås och toaletter får dock inte användas som tillflyktszon.</p>",
+        "Du får inte använda en tillflyktzon för att undvika att bli mördad.",
+      data: "Tillflyktzoner är killerfria områden och låsningsbara utrymmen",
     },
     {
       title:
-        "Våld får inte användas för att nå sitt offer eller för att hindra en mördare.",
+        "Alla som är involverade vid mordtillfällen där våld brukas riskerar att bli diskade.",
       data: "",
     },
     {
-      title: "Under Resurstiden gills hela skolbyggnaden som en lektionssal",
-      data: "<p>På onsdagar klockan 14.55 - 16.15 är det med andra ord killerfritt inne på skolan.</p>",
+      title: "Alla godkända mord ska registreras av offer och mördare.",
+      data: "Detta görs på hemsidan under fliken profil där du loggar in med din skolmail efter det du klickar du på antingen ”Jag blev dödad” eller ”Jag har dödat”. Vänta på att den andra klickar på den andra knappen och ladda om sidan efter några sekunder. Nu har du fått ditt nya offer.",
     },
     {
-      title: "Alla mord ska registreras hos oss av både mördare och offer ",
-      data: '<p>Detta görs på hemsidan under fliken profil där du loggar in med din <b>skolmail</b> efter det klickar du på antingen "Jag blev dödad" eller "Jag har dödat". Vänta på att den andra klickar på den andra knappen och ladda om sidan efter några sekunder. Nu har du fått ditt nästa offer</p>',
+      title: "Alla tvistemål registreras via profilen på hemsidan.",
+      data: "<ul><li>Ett tvistemål är när mördare och offer inte är överens om ett mords giltighet</li><li>Under ett tvistemål kan varken mördare eller offer mörda.</li><li>Tvistemålet börjar när mordet har skett och upphör när beslutet tagits av Killerutskottet.</li><li>I regel tar vi endast emot tvistemål som anmäls innan mordet har registrerats.</li></ul>",
     },
     {
-      title:
-        "Man får absolut inte byta offer med någon då detta skulle förstöra cirkeln ",
-      data: "<p>Man får heller inte döda någon annan än sitt tilldelade offer</p><p>Bryter man mot någon av dessa regler förstör man för alla andra deltagare</p>",
-    },
-    {
-      title: "Mord får bara begås mellan 7:00-20:00",
-      data: "<p></p>",
-    },
-    {
-      title: "Mord får inte begås hemma hos offret",
-      data: "<p>Mord får heller inte göras på hemmets tillhörande område som bestäms enligt nedan:</p><ul><li>Villor och radhus är tillhörande tomt killerfri.</li><li>Lägenheter är trappuppgång(ar) killerfria.</li></ul>",
-    },
-    {
-      title: "Man får endast försöka döda sitt offer en gång varje minut",
-      data: "<p></p>",
+      title: "Man får inte döda någon annan än sitt offer. ",
+      data: "Om du lägger handen på axeln och säger du är död är detta ett mordförsök. Du får endast genomföra gesten på ditt offer. ",
     },
     {
       title:
-        "Vid tvistemål som ej kan avgöras kommer ett slumpmässigt beslut tas",
-      data: "<p>Detta gör vi efter att noga gått igenom de enskilda fallen och endast om det är absolut nödvändigt för att spelet ska kunna fortgå. </p><p>Det slumpmässiga valet ska göras genom att singla en slant</p>",
+        "Mord får inte begås hemma hos offret eller på hemmets tillhörande område.",
+      data: "<ul><li>För villor och radhus kan offret inte dö på tomt och garageuppfart.</li><li>För lägenheter kan offret inte dö från porten (inkluderar trappuppgång).</li></ul>",
     },
     {
       title:
-        "Matcher, Träningar, Körlektioner och annat som kräver stor koncentration är killerfria under tiden de pågår",
-      data: "<p>Du kan dock bli mördad på väg till en träning eller när du precis slutat.</p>",
+        "Vid aktivitet utanför skolan som kräver stor koncentration är det killerfritt under pågående tid.",
+      data: "<ul><li>Du kan dock bli mördad till och från aktiviteten</li><li>Exempelvis: Schemalagd träning, körlektion, och matcher.</lI></ul>",
     },
     {
-      title: "Arbetstid",
-      data: "<p>Under arbetstid kan man varken bli dödad eller döda.</p><p>Offret måste alltid kunna bevisa att han/hon faktiskt jobbar.</p>",
+      title:
+        "Vid aktiviteter inom skolan som kräver stor koncentration är det killerfritt.",
+      data: "Exempel på aktiviteter som räknas är möten med SkolIF, Enskildakåren, Luciaträning, och skolresor. Skolresor är killerfria från att du kliver på bussen tills den avslutas när du kliver av bussen hemåt.",
     },
     {
-      title: "Luciaträningen",
-      data: "<p>När du är med och tränar inför Lucia räknas det som en vanlig lektion.</p>",
+      title: "Under arbetstid kan man inte bli mördad.",
+      data: "Offret måste kunna bevisa att denne jobbar.",
     },
     {
-      title: "Flyktvägar",
-      data: "<p>Det är inte tillåtet att använda fönster eller nödutgångar som flyktväg. Tillämpas någon av dessa som flyktväg kommer personen i fråga bli diskad direkt.</p>",
+      title:
+        "Du kan mördas men inte mörda under lektioner du är frånvaroanmäld/frånvarande från.",
+      data: "",
+    },
+    {
+      title: "Du blir diskad om du är frånvarande 3 dagar i rad.",
+      data: "Om du tror att ditt offer varit sjuk i 3 dagar kan du höra av dig till oss.",
+    },
+    {
+      title: "Man får inte … i skolbyggnaden.",
+      data: "<ul><li>Springa</li><li>Hoppa genom fönster</li><li>Använda nödutgångar så länge det inte är nödläge (brandlarm)</li></ul>",
+    },
+    {
+      title:
+        "Regler från tidigare år, tidigare i år och tidigare förtydliganden gäller inte",
+      data: "",
     },
     {
       title: "Olämpligt uppträdande",
-      data: "<p>Det är förbjudet att sätta sig själv eller andra i fara eller hota andra deltagare på något sätt. Brytande mot denna regel kommer resultera i en omedelbar diskning.</p>",
+      data: "<ul><li>Det är förbjudet att sätta sig själv eller andra i fara eller hota andra deltagare på något sätt.</li><li>Svensk lag gäller givetvis</li><li>I andra fall där Killerutskottet finner att deltagare agerat på olämpligt vis har Killerutskottet möjlighet att diska dem deltagarna.</li></ul>",
     },
     {
-      title: "Frånvaro",
-      data: "<p>Självklart måste man vara hemma om man känner sig sjuk, men frånvaro kommer kontrolleras.</p><p>Om man är borta en längre period eller kontinuerligt blir det konsekvenser.</p>",
+      title: "Brott mot reglerna innebär att du riskerar diskning.",
+      data: "",
     },
     {
-      title: "Studentpoäng",
-      data: "<p>Student poäng delas ut i två kategorier</p><ul><li>De 3 klasser med flest överlevande i procent kommer få studentpoäng. Flest överlevande beräknas genom formeln: <br/>Antal Levnade (9/12 14:00)/Antal personer i klassen</li><br/><li>De 3 klasser med flest antal kills procentuellt kommer också få student poäng enligt formlen nedan: <br/>Antal Kills (9/12 14:00)/Antal personer i klassen</li></ul>",
+      title:
+        "Killerutskottet får inte vittna eller hinta för att andra ska vittna.",
+      data: "",
     },
     {
-      title: "Automatisk diskning och ändring av cirkeln",
-      data: "<p>Förändringar på cirkeln kan komma att ske under spelets gång, håll utkik på instagram @enskildakaren</p>",
+      title: "Killerutskottet har alltid sista ordet.",
+      data: "",
     },
     {
-      title:"Tvistemål",
-      data:"<p>Är du med i ett tvistemål får du <b>inte</b> döda ditt offer. Mördaren får alltså inte döda sitt offer och offret får inte döda sitt offer.</p>"
-    }
+      title: "Glöm inte fair play.",
+      data: "Acceptera att du är dödlig.",
+    },
   ],
 };
 

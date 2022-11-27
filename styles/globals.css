@@ -52,6 +52,7 @@ html {
 .infowrapper {
     width: 60%;
     margin: auto;
+    margin-bottom: 1.5rem;
 }
 
 @media screen and (max-width: 600px) {

@@ -1,15 +1,13 @@
 import Link from "next/link";
 import React from "react";
 import Header from "../../Components/Header";
-import Info from "../../Components/Info";
 import Rule from "../../Components/Rule";
 import { RuleInfo } from "../../Interfaces/Interfaces";
 import { data } from "../api/static/static";
-import howto from "../howto";
 
 function Rules({ rules }: { rules: RuleInfo[] }) {
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Header
         title="REGLER"
         description="Här står alla regler, följ dessa så blir Killer kul för alla"
@@ -26,9 +24,6 @@ function Rules({ rules }: { rules: RuleInfo[] }) {
       })}
       <br />
       <div className="infowrapper">
-        <div>
-          <p>KILLER-ansvariga har alltid sista ordet i eventuella tvister.</p>
-        </div>
         <div>
           <div>
             <p>Eventuella frågor tas upp med oss via mail</p>

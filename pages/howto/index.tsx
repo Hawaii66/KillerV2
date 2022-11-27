@@ -7,10 +7,7 @@ import { data } from "../api/static/static";
 function howto({ howto }: { howto: RuleInfo[] }) {
   return (
     <div>
-      <Header
-        title="KILLER guiden"
-        description="Så här fungerar killer, lär dig snabbt och enkelt om Killer i stora drag"
-      />
+      <Header title="Begrepp" description="Begrepp i Killer" />
       <br />
       <div className="infowrapper">
         <div>
@@ -18,7 +15,7 @@ function howto({ howto }: { howto: RuleInfo[] }) {
             <p>
               Spelet går ut på att döda ditt specifika offer och ej bli dödad av
               den som ska döda dig. När du dödat ditt offer får du offrets offer
-              och kan fortsätta din räd mot finalen.{" "}
+              och kan fortsätta din räd mot finalen.
             </p>
           </div>
         </div>

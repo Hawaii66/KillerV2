@@ -5,8 +5,11 @@ function Info({ data, title }: RuleInfo) {
   return (
     <li className="infowrapper">
       <div>
-        <p>{title}</p>
-        <div dangerouslySetInnerHTML={{ __html: data?.toString() || "" }}></div>
+        <div
+          dangerouslySetInnerHTML={{
+            __html: `<div><p><b>${title}:</b> ${data?.toString()}</p></div>`,
+          }}
+        />
       </div>
     </li>
   );
