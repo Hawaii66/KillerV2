@@ -27,22 +27,6 @@ function howto({ howto }: { howto: RuleInfo[] }) {
         })}
       </ul>
       <br />
-      <div className="infowrapper">
-        <div>
-          <p>
-            <b>Kreativitet och mål</b>
-          </p>
-          <div>
-            <p>
-              Vissa är med i KILLER för att ha kul, andra för att vinna. För att
-              lyckas så bra som möjligt är det viktigt att tänka utanför boxen.
-              Det är tillåtet och uppmuntras att använda sig av nya metoder för
-              att hitta och döda sina offer, så länge de inte bryter mot
-              reglerna. Lycka till!
-            </p>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
