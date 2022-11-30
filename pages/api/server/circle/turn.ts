@@ -27,6 +27,9 @@ export default async function handler(
   var newUsers: KillerUser[] = [];
   const allUsers: KillerUser[] = await users.find();
   allUsers.forEach((user) => {
+    if (user.alive !== "Alive") {
+      return;
+    }
     const targetUser = allUsers.find((find) => find.target === user.id);
     if (targetUser === undefined) {
       return;
