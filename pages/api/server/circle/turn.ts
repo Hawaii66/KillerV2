@@ -41,6 +41,7 @@ export default async function handler(
   });
 
   for (var i = 0; i < newUsers.length; i++) {
+    console.log("Updating user", newUsers[i].name, i, newUsers.length);
     await users.findOneAndUpdate(
       {
         id: newUsers[i].id,
