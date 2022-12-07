@@ -30,7 +30,7 @@ export default async function handler(
     if (user.alive !== "Alive") {
       return;
     }
-    const targetUser = allUsers.find((find) => find.target === user.id);
+    const targetUser = allUsers.find((find) => find.target === user.id && find.alive === "Alive");
     if (targetUser === undefined) {
       return;
     }

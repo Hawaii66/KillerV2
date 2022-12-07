@@ -101,12 +101,6 @@ function Stats({
   const [selectedGroup, setSelected] = useState<GroupStats>(groups[0]);
   const [isAliveGroup, setGroup] = useState(true);
 
-return(
-	<div>
-		<h1>Statistiken återkommer på torsdag</h1>
-		</div>
-)
-	
   return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
       {/*<div
