@@ -147,8 +147,9 @@ function HomeInfoEditor({ email, jwt }: { email: string; jwt: string }) {
                   miniHeader: "",
                   text: "",
                   id: "",
-                },      
-                ...old,  
+                  index: posts.length,
+                },
+                ...old,
               ])
             }
             variant="info"

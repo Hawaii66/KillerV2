@@ -8,6 +8,8 @@ import { HomeInfo } from "../Interfaces/Interfaces";
 import { connect, dbs } from "../utils/DBConnection";
 
 export default function Home({ posts }: { posts: HomeInfo[] }) {
+  console.log(posts, posts.length);
+
   return (
     <>
       <Header
@@ -17,9 +19,11 @@ export default function Home({ posts }: { posts: HomeInfo[] }) {
       <br />
       <div className="home">
         <div>
-          {posts.map((i, index) => {
-            return <Info info={i} key={index} />;
-          })}
+          {posts
+            .sort((a, b) => a.index - b.index)
+            .map((i, index) => {
+              return <Info info={i} key={index} />;
+            })}
         </div>
       </div>
     </>
@@ -30,6 +34,8 @@ export async function getServerSideProps() {
   await connect();
   var posts: HomeInfo[] = await dbs.posts.find();
 
+  console.log(posts.length);
+
   var returns: HomeInfo[] = [];
   posts.map((i) => {
     returns.push({
@@ -38,6 +44,7 @@ export async function getServerSideProps() {
       miniHeader: i.miniHeader,
       text: i.text,
       id: i.id,
+      index: i.index,
     });
   });
 

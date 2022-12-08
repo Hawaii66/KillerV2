@@ -25,6 +25,7 @@ export interface HomeInfo {
   imageUrl: string;
   text?: string;
   id: string;
+  index: number;
 }
 
 export interface ConfirmedKill {

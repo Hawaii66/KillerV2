@@ -102,12 +102,6 @@ function Stats({
   const [isAliveGroup, setGroup] = useState(true);
 
   return (
-    <div>
-      <h1>Vi inväntar resultat</h1>
-    </div>
-  );
-
-  return (
     <div style={{ width: size.width < 800 ? "95vw" : 500 }}>
       {/*<div
         style={{

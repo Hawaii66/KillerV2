@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { HomeInfo } from "../../Interfaces/Interfaces";
 import styles from "./Info.module.css";
 
@@ -7,6 +7,12 @@ interface Props {
 }
 
 function Info({ info }: Props) {
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    setText(info.text || "");
+  }, []);
+
   return (
     <div className={styles.wrapper}>
       <div className={styles.shareWrapper}>
@@ -30,7 +36,7 @@ function Info({ info }: Props) {
       {info.text !== undefined && (
         <div
           className={styles.text}
-          dangerouslySetInnerHTML={{ __html: info.text }}
+          dangerouslySetInnerHTML={{ __html: text }}
         />
       )}
     </div>
