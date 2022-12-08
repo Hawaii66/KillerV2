@@ -34,8 +34,6 @@ export async function getServerSideProps() {
   await connect();
   var posts: HomeInfo[] = await dbs.posts.find();
 
-  console.log(posts.length);
-
   var returns: HomeInfo[] = [];
   posts.map((i) => {
     returns.push({
