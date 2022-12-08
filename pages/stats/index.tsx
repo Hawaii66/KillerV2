@@ -91,11 +91,13 @@ function Stats({
   kills,
   days,
   killsDead,
+  topKills,
 }: {
   groups: GroupStats[];
   kills: KillerUser[];
   killsDead: KillerUser[];
   days: { killsAlive: number; killsDead: number; day: number; month: number }[];
+  topKills: KillerUser[];
 }) {
   const size = useWindowSize();
   const [selectedGroup, setSelected] = useState<GroupStats>(groups[0]);
@@ -119,6 +121,7 @@ function Stats({
           kills={kills}
           selectedGroup={selectedGroup}
           setGroup={(s) => setSelected(s)}
+          topKills={topKills}
         />
       ) : (
         <Dead
@@ -188,6 +191,17 @@ export async function getServerSideProps() {
     ...finals,
   ];
 
+  const topKills = users
+    .filter((a) => a.alive === "Alive")
+    .sort((a, b) => b.kills - a.kills)
+    .splice(0, 10)
+    .map((i) => {
+      return {
+        name: i.name,
+        kills: i.kills,
+      };
+    });
+
   const killsEveryDay: {
     [key: number]: {
       killsAlive: number;
@@ -225,6 +239,7 @@ export async function getServerSideProps() {
 
   return {
     props: {
+      topKills: topKills,
       groups: finals,
       kills: [...mostKills.splice(0, 10)]
         .filter((i) => i.kills > 0)

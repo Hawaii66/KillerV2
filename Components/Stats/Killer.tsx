@@ -11,9 +11,17 @@ interface Props {
   days: { killsAlive: number; killsDead: number; day: number; month: number }[];
   setGroup: (group: GroupStats) => void;
   selectedGroup: GroupStats;
+  topKills: KillerUser[];
 }
 
-function Killer({ groups, kills, days, setGroup, selectedGroup }: Props) {
+function Killer({
+  groups,
+  kills,
+  days,
+  setGroup,
+  selectedGroup,
+  topKills,
+}: Props) {
   const size = useWindowSize();
   return (
     <>
@@ -70,6 +78,31 @@ function Killer({ groups, kills, days, setGroup, selectedGroup }: Props) {
           ],
         }}
       />
+      {topKills.length > 0 && (
+        <Bar
+          height={size.width < 800 ? 800 : 300}
+          options={{
+            ...optionsKills,
+            plugins: {
+              title: {
+                display: true,
+                text: "Top kills av levande",
+              },
+            },
+          }}
+          data={{
+            labels: topKills.map((i) => i.name),
+            datasets: [
+              {
+                label: "Kills",
+                data: topKills.map((i) => i.kills),
+                backgroundColor: "rgba(98, 79, 130, 0.3)",
+                stack: "Stack 0",
+              },
+            ],
+          }}
+        />
+      )}
       {kills.length > 0 && (
         <Bar
           height={size.width < 800 ? 800 : 300}
@@ -87,6 +120,7 @@ function Killer({ groups, kills, days, setGroup, selectedGroup }: Props) {
           }}
         />
       )}
+
       <Bar
         height={size.width < 800 ? 800 : 300}
         options={optionsAlive}
