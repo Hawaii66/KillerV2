@@ -51,6 +51,7 @@ export async function getServerSideProps({
     title: post.title,
     miniHeader: post.miniHeader,
     text: post.text,
+    index: post.index,
   };
 
   return {
