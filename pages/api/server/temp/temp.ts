@@ -20,7 +20,7 @@ export default async function handler(
       await circle.insert(users[i]);
       console.log("Inserting: ", users[i].name, users[i].schoolEmail);
     }*/
-    await circle.insertMany(users);
+    await circle.insert(users);
 
     console.log("DOne");
     res.status(200).send("Success");
