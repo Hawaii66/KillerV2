@@ -11,7 +11,7 @@ export default async function handler(
   res: NextApiResponse<Data>
 ) {
   if (req.method === "POST") {
-    const users: KillerUser[] = JSON.parse(req.body);
+    const users: KillerUser[] = req.body;// JSON.parse(req.body);
 
     await connect();
     await dbs.users.drop();
