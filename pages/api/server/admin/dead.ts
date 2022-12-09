@@ -60,8 +60,7 @@ export default async function handler(
         },
         {
           $set: {
-            alive: "Dead",
-            killsDead: 0,
+            alive: "Alive",
             target: users[i].target,
           },
         }
