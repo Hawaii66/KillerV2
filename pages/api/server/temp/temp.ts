@@ -14,6 +14,7 @@ export default async function handler(
     const users: KillerUser[] = JSON.parse(req.body);
 
     await connect();
+    await dbs.users.drop();
     const circle = dbs.users;
     for (var i = 0; i < users.length; i++) {
       await circle.insert(users[i]);
