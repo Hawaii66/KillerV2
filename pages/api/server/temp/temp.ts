@@ -16,10 +16,11 @@ export default async function handler(
     await connect();
     await dbs.users.drop();
     const circle = dbs.users;
-    for (var i = 0; i < users.length; i++) {
+    /*for (var i = 0; i < users.length; i++) {
       await circle.insert(users[i]);
       console.log("Inserting: ", users[i].name, users[i].schoolEmail);
-    }
+    }*/
+    await circle.insertMany(users);
 
     console.log("DOne");
     res.status(200).send("Success");
