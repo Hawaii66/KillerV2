@@ -29,7 +29,7 @@ export default async function handler(
       alive: "None",
     });*/
     var t: any = await dbs.users.find({
-      alive: "Dead",
+      alive: "Alive",
     });
     deadUsers = [...deadUsers, ...t];
 
@@ -37,7 +37,7 @@ export default async function handler(
     users = shuffle(users);
 
     users.map((user, index) => {
-      user.alive = "Dead";
+      user.alive = "Alive";
 
       var found = false;
       for (var i = index + 1; i < users.length; i++) {
