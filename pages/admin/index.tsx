@@ -246,14 +246,6 @@ function Admin() {
     instance.logoutRedirect();
   };
 
-  const killUser = async (userId: number) => {
-    const url = `/api/server/case/admin?email=${user.email}&jwt=${user.jwt}&kill=${userId}`;
-    const result = await fetch(url);
-    console.log(result);
-    const newUsers = await result.json();
-    setUsers(newUsers);
-  };
-
   const turn = async () => {
     const url = `/api/server/circle/turn?email=${user.email}&jwt=${user.jwt}`;
     const result = await fetch(url);
@@ -290,6 +282,22 @@ function Admin() {
     alert("De Dödas cirkel är generaread");
   };
 
+  const murderUser = async (id: number) => {
+    const url = `/api/server/admin/manual?email=${user.email}&jwt=${user.jwt}&method=MURDER&kill=${id}`;
+    const result = await fetch(url);
+    console.log(result);
+    setUsers(await result.json());
+    alert("Updated users");
+  };
+
+  const dicsUser = async (id: number) => {
+    const url = `/api/server/admin/manual?email=${user.email}&jwt=${user.jwt}&method=DISC&kill=${id}`;
+    const result = await fetch(url);
+    console.log(result);
+    setUsers(await result.json());
+    alert("Updated users");
+  };
+
   const isLoggedIn = () => {
     return (
       <div className={styles.wrapper}>
@@ -314,9 +322,12 @@ function Admin() {
           users={users}
           action={(userId, type) => {
             switch (type) {
-              case "Kill":
-                killUser(userId);
-                break;
+              case "DISC":
+                dicsUser(userId);
+                return;
+              case "MURDER":
+                murderUser(userId);
+                return;
             }
           }}
         />

@@ -3,7 +3,7 @@ import { Button, ButtonGroup, Table } from "react-bootstrap";
 import { Circle, KillerUser } from "../../Interfaces/Interfaces";
 import styles from "./admin.module.css";
 
-type ActionType = "Kill";
+type ActionType = "MURDER" | "DISC";
 
 interface Props {
   users: KillerUser[];
@@ -78,7 +78,16 @@ function UserViewer({ users, showdead, action }: Props) {
                 </td>
                 <td>
                   <ButtonGroup>
-                    <Button onClick={() => action(user.id, "Kill")}>
+                    <Button
+                      variant="warning"
+                      onClick={() => action(user.id, "MURDER")}
+                    >
+                      Mörda manuellt
+                    </Button>
+                    <Button
+                      variant="danger"
+                      onClick={() => action(user.id, "DISC")}
+                    >
                       Diska
                     </Button>
                   </ButtonGroup>
