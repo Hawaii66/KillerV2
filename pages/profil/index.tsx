@@ -242,7 +242,7 @@ function Profil() {
               </button>
             </div>
             <h1>Vi förbereder killer för mördar veckan. Start måndag kl 7.00</h1>
-            {/*profile.alive === "Alive" &&
+            {profile.alive === "Alive" &&
               themeWrapper(
                 <ButtonContainer loading={loading}>
                   {!hasCase ? (
@@ -259,7 +259,7 @@ function Profil() {
                   )}
                 </ButtonContainer>,
                 profile.alive
-              )*/}
+              )}
             <Card>
               <h3>Status:</h3>
               <p>
